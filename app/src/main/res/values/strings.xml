@@ -31,4 +31,15 @@
     <string name="CategoryHeader">Categories</string>
     <string name="AddCAtegoryHint">Category Name</string>
     <string name="AddCategoryButtonText">Create</string>
+    <string name="HomeOverviewOrdersHeader">ORDERS</string>
+    <string name="HomeOverviewRevenueHeader">REVENUE</string>
+    <string name="HomeOverviewStoreViewsHeader">STORE VIEWS</string>
+    <string name="HomeOverviewProductViewsHeader">PRODUCT VIEWS</string>
+    <string name="homeActiveOrdersHeader">Active Orders</string>
+    <string name="HomeActiveOrdersViewAll">View All</string>
+    <string name="HomeActiveOrdersAllFilter">All</string>
+    <string name="HomeActiveOrdersPendingFilter">Pending</string>
+    <string name="HomeActiveOrdersAcceptedFilter">Accepted</string>
+    <string name="ordersLayoutHeaderTitle">Orders</string>
+    <string name="orderItemDetailsButton">Details ></string>
 </resources>

@@ -35,7 +35,8 @@ public class AddCategoryActivity extends AppCompatActivity {
 
         String phoneNumber = "+919000990098";
         databaseReference.child(phoneNumber).child("productCategories").child(categoryName).setValue(categoryName);
-        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("name").setValue(categoryName).addOnSuccessListener(new OnSuccessListener<Void>() {
+        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("numberOfProducts").setValue("0");
+        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("categoryName").setValue(categoryName).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 categoriesAdapter.notifyDataSetChanged();
@@ -45,8 +46,9 @@ public class AddCategoryActivity extends AppCompatActivity {
 
 //        if ( user != null && categoryName.length()>0) {
 //            String phoneNumber = user.getPhoneNumber();
-//            databaseReference.child(phoneNumber).child("productCategories").child(categoryName).setValue(categoryName);
-    //        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("name").setValue(categoryName).addOnSuccessListener(new OnSuccessListener<Void>() {
+//             databaseReference.child(phoneNumber).child("productCategories").child(categoryName).setValue(categoryName);
+    //        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("numberOfProducts").setValue("0");
+    //        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("categoryName").setValue(categoryName).addOnSuccessListener(new OnSuccessListener<Void>() {
     //            @Override
     //            public void onSuccess(Void aVoid) {
     //                categoriesAdapter.notifyDataSetChanged();

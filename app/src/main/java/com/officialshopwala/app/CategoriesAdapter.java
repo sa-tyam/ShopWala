@@ -54,8 +54,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            categoryNameTextView = itemView.findViewById(R.id.categoryNameTextView);
-            categoryItemCountTextView = itemView.findViewById(R.id.categoryItemCountTextView);
+            categoryNameTextView = itemView.findViewById(R.id.orderNumberTitleTextView);
+            categoryItemCountTextView = itemView.findViewById(R.id.orderItemCountTextView);
             categoryItemMoreImage = itemView.findViewById(R.id.categoryItemMoreImageView);
 
         }

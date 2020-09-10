@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class CategoriesActivity extends AppCompatActivity {
     RecyclerView categoriesRecyclerView;
     static CategoriesAdapter categoriesAdapter;
     static ArrayList<Category> categoryArrayList = new ArrayList<>();
+    ArrayList<String> dataKeys = new ArrayList<>();
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -39,6 +41,13 @@ public class CategoriesActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public interface DataStatus {
+        void DataIsLoaded(ArrayList<Category> categoryArrayList, ArrayList<String> dataKeys);
+        void DataIsInserted();
+        void DataIsUpdated();
+        void DataIsDeleted();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +55,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
+        categoriesRecyclerView = findViewById(R.id.ordersRecyclerView);
 
         //set categories as selected
         bottomNavigationView.setSelectedItemId(R.id.bottombar_categories);
@@ -81,9 +90,71 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         });
 
-        retrieveDataFromFirebase();
+        callRetrieveData();
 
-        setCategoryRecyclerView();
+
+    }
+
+    private void callRetrieveData() {
+        retrieveDataFromFirebase(new DataStatus() {
+            @Override
+            public void DataIsLoaded(ArrayList<Category> categoryArrayList, ArrayList<String> dataKeys) {
+                setCategoryRecyclerView();
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
+    }
+
+    private void retrieveDataFromFirebase( final DataStatus dataStatus) {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Sellers");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        categoryArrayList.clear();
+
+        String phoneNumber = "+919000990098";
+        databaseReference.child(phoneNumber).child("productCategories").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                addCategoriesToList(dataSnapshot);
+                dataStatus.DataIsLoaded(categoryArrayList, dataKeys);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        /*String phoneNumber = user.getPhoneNumber();
+
+        if (user!=null) {
+            databaseReference.child(phoneNumber).child("orders").child("all").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    addOrderToList(dataSnapshot);
+                    dataStatus.DataIsLoaded(orderItemArrayList, dataKeys);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }*/
     }
 
     private void setCategoryRecyclerView() {
@@ -93,92 +164,13 @@ public class CategoriesActivity extends AppCompatActivity {
         categoriesRecyclerView.setAdapter(categoriesAdapter);
     }
 
-    private void retrieveDataFromFirebase() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        categoryArrayList.clear();
-
-        String phoneNumber = "+919000990098";
-
-        databaseReference = firebaseDatabase.getReference("Sellers");
-        databaseReference.child(phoneNumber).child("productCategories").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.i("retrieve data", "called");
-                addCategoriesToList( dataSnapshot );
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-        /*if (user!= null) {
-            String phoneNumber = user.getPhoneNumber();
-
-            databaseReference = firebaseDatabase.getReference("Sellers");
-            databaseReference.child(phoneNumber).child("productCategories").addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Log.i("retrieve data", "called");
-                    addCategoriesToList( dataSnapshot );
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        } */
-
-    }
 
     public void addCategoriesToList (DataSnapshot dataSnapshot ) {
-        Log.i("add categories to list", "called");
-        String name="";
-        Category ct = new Category();
-
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            name = ds.getValue(String.class);
-            if (name != null) {
-                Log.i("name", name);
-            }
-            ct.setCategoryName(name);
-            ct.setNumberOfProducts("0");
-            categoryArrayList.add(ct);
-            categoriesAdapter.notifyDataSetChanged();
+        categoryArrayList.clear();
+        for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+            dataKeys.add(keyNode.getKey());
+            Category ctg = keyNode.getValue(Category.class);
+            categoryArrayList.add(ctg);
         }
     }
 }
