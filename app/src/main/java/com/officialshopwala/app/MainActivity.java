@@ -1,0 +1,99 @@
+package com.officialshopwala.app;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Switch;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class MainActivity extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference databaseReference;
+
+    public void shareLinkOnWhatsapp (View view) {
+        boolean installed = appInstalledOrNot("com.whatsapp");
+        if (installed) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?text="+getString(R.string.homeShareHeaderLink)));
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.whatsappNotInstalled), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //set home as selected
+        bottomNavigationView.setSelectedItemId(R.id.bottombar_home);
+
+        //setting database rootnode;
+        rootNode = FirebaseDatabase.getInstance();
+        databaseReference = rootNode.getReference("Sellers");
+
+        //set on item selected
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId()){
+                    case R.id.bottombar_home:
+                        return true;
+                    case R.id.bottombar_orders:
+                        startActivity(new Intent(getApplicationContext(), OrdersActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.bottombar_products:
+                        startActivity(new Intent(getApplicationContext(), ProductsActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.bottombar_categories:
+                        startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.bottombar_account:
+                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
+    }
+
+    private boolean appInstalledOrNot(String url) {
+        PackageManager packageManager = getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+            e.printStackTrace();
+        }
+        return app_installed;
+    }
+
+}

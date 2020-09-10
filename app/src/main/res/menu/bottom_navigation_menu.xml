@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottombar_home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/bottombar_orders"
+        android:title="Orders"
+        android:icon="@drawable/ic_orders"/>
+    <item
+        android:id="@+id/bottombar_products"
+        android:title="Products"
+        android:icon="@drawable/ic_products"/>
+    <item
+        android:id="@+id/bottombar_categories"
+        android:title="Categories"
+        android:icon="@drawable/ic_categories"/>
+    <item
+        android:id="@+id/bottombar_account"
+        android:title="Account"
+        android:icon="@drawable/ic_account"/>
+</menu>

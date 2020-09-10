@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "985974321760",
+    "firebase_url": "https://shopwala-30b81.firebaseio.com",
+    "project_id": "shopwala-30b81",
+    "storage_bucket": "shopwala-30b81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985974321760:android:1e3dbcabeb5fa7f6074905",
+        "android_client_info": {
+          "package_name": "com.officialshopwala.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985974321760-dcisluj1ang723mtrffcun2d5bqit2ap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.officialshopwala.app",
+            "certificate_hash": "0470b67bba08b4aa89ae3de96eb0e398855107dd"
+          }
+        },
+        {
+          "client_id": "985974321760-3apiel1qggsmoopqjghacs79u9lr63pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvRZW3_8iyIV-f0tsMGxnlbDCmY7vkneQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985974321760-3apiel1qggsmoopqjghacs79u9lr63pf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

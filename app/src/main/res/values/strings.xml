@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">ShopWala</string>
+    <string name="continue_button">Continue</string>
+    <string name="yourWhatsappNumber">Your WhatsApp Number</string>
+    <string name="madeInIndia">100% Made in India</string>
+    <string name="onboardSignupButton">Next</string>
+    <string name="enterOtp">Enter OTP</string>
+    <string name="otpSignupButton">Sign Up</string>
+    <string name="enterOtoDescription">Enter 6-digit code sent to your phone</string>
+    <string name="onBoardOneTitle">Discover</string>
+    <string name="onBoardOneDescription">Explore your local markets and products at your fingertips.</string>
+    <string name="onBoardTwoTitle">Sell Online</string>
+    <string name="onBoardTwoDescription">Sell your products online on WhatsApp and anywhere on social media. </string>
+    <string name="onBoardThreeTitle">Local Delivery</string>
+    <string name="onBoardThreeDescription">Deliver your products locally and get your feedback by the customers.</string>
+    <string name="provide_otp">Please provide 6 digit OTP sent to your phone.</string>
+    <string name="signupStarterTextOne">Online Shop</string>
+    <string name="signupStarterTextTwo">Successfully Created</string>
+    <string name="signupStarterStartSellingButton">Start Selling</string>
+    <string name="homeShareHeaderTitle">Share link on WhatsApp</string>
+    <string name="homeShareHeaderDescription">Your customers can visit your online store and place orders from this link.</string>
+    <string name="homeShareHeaderLink">shopwala.online/shopname_ntcgs</string>
+    <string name="whatsappNotInstalled">Please install WhatsApp to continue. </string>
+    <string name="overviewTitle">Overview</string>
+    <string name="overViewFilter">Life Time</string>
+    <string name="ShopSaveActivityHeader">Enter business details</string>
+    <string name="ShopSaveActivityNameHint">Business Name</string>
+    <string name="ShopSaveActivityAddressHint">Address</string>
+    <string name="ShopSaveActivityFinishButton">Finish</string>
+    <string name="CategoryItemCount">Product listed</string>
+    <string name="CategoryHeader">Categories</string>
+    <string name="AddCAtegoryHint">Category Name</string>
+    <string name="AddCategoryButtonText">Create</string>
+</resources>
