@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/addzCategoriesHeader"
+            android:id="@+id/productLayoutHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/CategoryHeader"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/addCategoriesHeaderAdd"
+            android:id="@+id/addProductHeaderButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <Button
-        android:id="@+id/addCategoryFinishButton"
+        android:id="@+id/AddProductSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"

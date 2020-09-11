@@ -1,28 +1,20 @@
 package com.officialshopwala.app;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static com.officialshopwala.app.GetCategoriesList.categoryArrayList;
 
 public class CategoriesActivity extends AppCompatActivity {
 
@@ -30,22 +22,10 @@ public class CategoriesActivity extends AppCompatActivity {
 
     RecyclerView categoriesRecyclerView;
     static CategoriesAdapter categoriesAdapter;
-    static ArrayList<Category> categoryArrayList = new ArrayList<>();
-    ArrayList<String> dataKeys = new ArrayList<>();
-
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
 
     public void addCategory (View view) {
         Intent myIntent = new Intent(getApplicationContext(), AddCategoryActivity.class);
         startActivity(myIntent);
-    }
-
-    public interface DataStatus {
-        void DataIsLoaded(ArrayList<Category> categoryArrayList, ArrayList<String> dataKeys);
-        void DataIsInserted();
-        void DataIsUpdated();
-        void DataIsDeleted();
     }
 
     @Override
@@ -55,7 +35,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        categoriesRecyclerView = findViewById(R.id.ordersRecyclerView);
+        categoriesRecyclerView = findViewById(R.id.productsRecyclerView);
 
         //set categories as selected
         bottomNavigationView.setSelectedItemId(R.id.bottombar_categories);
@@ -91,12 +71,10 @@ public class CategoriesActivity extends AppCompatActivity {
         });
 
         callRetrieveData();
-
-
     }
 
     private void callRetrieveData() {
-        retrieveDataFromFirebase(new DataStatus() {
+        GetCategoriesList.retrieveDataFromFirebase(new GetCategoriesList.DataStatus(){
             @Override
             public void DataIsLoaded(ArrayList<Category> categoryArrayList, ArrayList<String> dataKeys) {
                 setCategoryRecyclerView();
@@ -119,44 +97,6 @@ public class CategoriesActivity extends AppCompatActivity {
         });
     }
 
-    private void retrieveDataFromFirebase( final DataStatus dataStatus) {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Sellers");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        categoryArrayList.clear();
-
-        String phoneNumber = "+919000990098";
-        databaseReference.child(phoneNumber).child("productCategories").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                addCategoriesToList(dataSnapshot);
-                dataStatus.DataIsLoaded(categoryArrayList, dataKeys);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        /*String phoneNumber = user.getPhoneNumber();
-
-        if (user!=null) {
-            databaseReference.child(phoneNumber).child("orders").child("all").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    addOrderToList(dataSnapshot);
-                    dataStatus.DataIsLoaded(orderItemArrayList, dataKeys);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }*/
-    }
-
     private void setCategoryRecyclerView() {
         categoriesRecyclerView.setHasFixedSize(true);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
@@ -164,13 +104,4 @@ public class CategoriesActivity extends AppCompatActivity {
         categoriesRecyclerView.setAdapter(categoriesAdapter);
     }
 
-
-    public void addCategoriesToList (DataSnapshot dataSnapshot ) {
-        categoryArrayList.clear();
-        for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-            dataKeys.add(keyNode.getKey());
-            Category ctg = keyNode.getValue(Category.class);
-            categoryArrayList.add(ctg);
-        }
-    }
 }

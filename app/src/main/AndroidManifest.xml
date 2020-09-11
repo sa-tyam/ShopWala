@@ -11,21 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderDetailsActivity"></activity>
-        <activity android:name=".AddCategoryActivity" />
-        <activity android:name=".ShopSaveActivity"></activity>
-        <activity android:name=".AccountActivity" />
-        <activity android:name=".CategoriesActivity" />
-        <activity android:name=".ProductsActivity" />
-        <activity android:name=".OrdersActivity" />
-        <activity android:name=".SignupStarterActivity" />
-        <activity android:name=".OnBoardingActivity" />
-        <activity android:name=".OTPVerificationActivity" />
-        <activity android:name=".SignupActivity" />
+        <activity android:name=".AddProductActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".OrderDetailsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".AddCategoryActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ShopSaveActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AccountActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".CategoriesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ProductsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".OrdersActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SignupStarterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".OnBoardingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".OTPVerificationActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SignupActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/SplashTheme" />
-        <activity android:name=".MainActivity">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

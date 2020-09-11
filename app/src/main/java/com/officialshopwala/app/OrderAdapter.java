@@ -1,7 +1,6 @@
 package com.officialshopwala.app;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +31,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.orderNumberTitleTextView.setText("Order #"+orderItemArrayList.get(position).getOrderNumber());
-        holder.orderPriceTextView.setText("$"+orderItemArrayList.get(position).getPrice());
-        holder.orderItemCountTextView.setText(orderItemArrayList.get(position).getItemCount()+ " items");
+        holder.orderNumberTitleTextView.setText("Order #"+Integer.toString(orderItemArrayList.get(position).getOrderNumber()));
+        holder.orderPriceTextView.setText("$"+Integer.toString(orderItemArrayList.get(position).getPrice()));
+        holder.orderItemCountTextView.setText(Integer.toString(orderItemArrayList.get(position).getItemCount())+ " items");
         holder.orderItemTimeTextView.setText(orderItemArrayList.get(position).getOrderTime());
         holder.orderStatusTextView.setText(orderItemArrayList.get(position).getOrderStatus());
         holder.orderDetailButton.setOnClickListener(new View.OnClickListener() {
@@ -60,9 +59,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            orderNumberTitleTextView = itemView.findViewById(R.id.orderNumberTitleTextView);
-            orderPriceTextView = itemView.findViewById(R.id.orderPriceTextView);
-            orderItemCountTextView = itemView.findViewById(R.id.orderItemCountTextView);
+            orderNumberTitleTextView = itemView.findViewById(R.id.productItemName);
+            orderPriceTextView = itemView.findViewById(R.id.productItemPriceTextView);
+            orderItemCountTextView = itemView.findViewById(R.id.productItemSwitchTextView);
             orderItemTimeTextView = itemView.findViewById(R.id.orderItemTimeTextView);
             orderStatusTextView = itemView.findViewById(R.id.orderStatusTextView);
             orderDetailButton = itemView.findViewById(R.id.orderDetailButton);

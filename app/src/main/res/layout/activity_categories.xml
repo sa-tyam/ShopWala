@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/addzCategoriesHeader"
+            android:id="@+id/productLayoutHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/CategoryHeader"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/addCategoriesHeaderAdd"
+            android:id="@+id/addProductHeaderButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -57,7 +57,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ordersRecyclerView"
+        android:id="@+id/productsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"

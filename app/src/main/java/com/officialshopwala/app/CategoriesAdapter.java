@@ -33,7 +33,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.categoryNameTextView.setText(categoryArrayList.get(position).getCategoryName());
-        holder.categoryItemCountTextView.setText(categoryArrayList.get(position).getNumberOfProducts() + " Product listed");
+        holder.categoryItemCountTextView.setText(Integer.toString(categoryArrayList.get(position).getNumberOfProducts()) + " Product listed");
         holder.categoryItemMoreImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,8 +54,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            categoryNameTextView = itemView.findViewById(R.id.orderNumberTitleTextView);
-            categoryItemCountTextView = itemView.findViewById(R.id.orderItemCountTextView);
+            categoryNameTextView = itemView.findViewById(R.id.productItemName);
+            categoryItemCountTextView = itemView.findViewById(R.id.productItemSwitchTextView);
             categoryItemMoreImage = itemView.findViewById(R.id.categoryItemMoreImageView);
 
         }

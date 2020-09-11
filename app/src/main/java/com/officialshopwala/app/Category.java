@@ -2,7 +2,13 @@ package com.officialshopwala.app;
 
 public class Category {
     String categoryName;
-    String numberOfProducts;
+    int numberOfProducts;
+
+    public Category (String categoryName, int numberOfProducts) {
+        this.categoryName = categoryName;
+        this.numberOfProducts = numberOfProducts;
+    }
+
 
     public String getCategoryName() {
         return categoryName;
@@ -12,11 +18,11 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public String getNumberOfProducts() {
+    public int getNumberOfProducts() {
         return numberOfProducts;
     }
 
-    public void setNumberOfProducts(String numberOfProducts) {
+    public void setNumberOfProducts(int numberOfProducts) {
         this.numberOfProducts = numberOfProducts;
     }
 }
