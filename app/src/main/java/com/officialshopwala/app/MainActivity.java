@@ -16,8 +16,11 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +53,26 @@ public class MainActivity extends AppCompatActivity {
         //setting database rootnode;
         rootNode = FirebaseDatabase.getInstance();
         databaseReference = rootNode.getReference("Sellers");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String phoneNumber = "+919000990098";
+        if (user!=null) {
+            phoneNumber = user.getPhoneNumber();
+        }
+
+        databaseReference.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChild("businessName")){
+                    startActivity(new Intent(getApplicationContext(), ShopSaveActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //set on item selected
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,18 +85,22 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.bottombar_orders:
                         startActivity(new Intent(getApplicationContext(), OrdersActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_products:
                         startActivity(new Intent(getApplicationContext(), ProductsActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_categories:
                         startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_account:
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                 }
 

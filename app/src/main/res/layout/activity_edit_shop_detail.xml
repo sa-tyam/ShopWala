@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProductActivity">
+    tools:context=".EditShopDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -16,10 +16,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/addProductHeader"
+            android:id="@+id/editBusinessDetailHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/AddProductHeader"
+            android:text="@string/EditBusinessDetailHeader"
             android:textColor="@color/fontColorAccent"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -30,126 +30,125 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/addProductHeaderBack"
+            android:id="@+id/editBusinessDetailHeaderBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:onClick="addProductBackButtonCicked"
+            android:onClick="backFromEditBusinessDetail"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_backspace_white" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <Button
-        android:id="@+id/AddProductSaveButton"
+        android:id="@+id/editBusinessDetailSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/buttonColorPrimaryActive"
-        android:onClick="addProduct"
+        android:onClick="saveBusinessDetailChange"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:text="@string/AddProductSaveButton"
+        android:text="@string/EditBusinessDetailSaveButton"
         android:textColor="@color/fontColorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddProductChoseCtgSpinner" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/AddProductimageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/businessShopImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/ic_account" />
 
     <TextView
-        android:id="@+id/AddProductImageViewFooter"
+        android:id="@+id/editBusinessDetailImageFooter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/AddProductAddImagefooter"
+        android:layout_marginTop="15dp"
+        android:text="@string/EditBusinessdetailImageFooter"
+        android:textColor="@android:color/holo_red_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddProductimageView" />
+        app:layout_constraintTop_toBottomOf="@+id/businessShopImageView" />
 
-    <EditText
-        android:id="@+id/AddProductProductName"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/editBusinessDetailshopNameTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="@string/AddProductProductNameHint"
-        android:inputType="textPersonName"
-        android:singleLine="true"
+        android:text="Trial"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddProductImageViewFooter" />
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessDetailImageFooter"
+        android:focusable="false"/>
 
     <EditText
-        android:id="@+id/AddProductPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:ems="10"
-        android:hint="@string/AddProductPriceHint"
-        android:inputType="number"
-        android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@+id/AddProductQuantityTypeSpinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddProductProductName" />
-
-    <Spinner
-        android:id="@+id/AddProductQuantityTypeSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/AddProductPrice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/AddProductPrice"
-        app:layout_constraintTop_toTopOf="@+id/AddProductPrice" />
-
-    <EditText
-        android:id="@+id/AddProductDescription"
+        android:id="@+id/editBusinessDetailShopLinkEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
-        android:hint="@string/AddProductDecriptionHint"
         android:inputType="textPersonName"
-        android:singleLine="true"
+        android:text="shopWala.com/test/1234"
+        android:editable="false"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddProductPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessDetailshopNameTextView"
+        android:focusable="false"/>
 
-    <Spinner
-        android:id="@+id/AddProductChoseCtgSpinner"
+    <EditText
+        android:id="@+id/editBusinessDetailShopPhoneNumberEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="+91-9090909090"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddProductDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessDetailShopLinkEditText"
+        android:focusable="false"/>
+
+    <EditText
+        android:id="@+id/editBusinessDetailShopAddressEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:editable="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="abc, abc colony, abc city, abc state"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessDetailShopPhoneNumberEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

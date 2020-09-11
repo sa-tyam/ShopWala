@@ -11,24 +11,53 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddProductActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".OrderDetailsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".AddCategoryActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ShopSaveActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".AccountActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".CategoriesActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ProductsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".OrdersActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".SignupStarterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".OnBoardingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".OTPVerificationActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".SignupActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EditShopDetailActivity"></activity>
+        <activity android:name=".SetDeliveryChargeActivity" />
+        <activity android:name=".PrivacyPolicyActivity" />
+        <activity
+            android:name=".AddProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShopSaveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CategoriesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProductsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrdersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignupStarterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OnBoardingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OTPVerificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignupActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

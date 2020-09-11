@@ -47,20 +47,24 @@ public class OrdersActivity extends AppCompatActivity {
                     case R.id.bottombar_home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_orders:
                         return true;
                     case R.id.bottombar_products:
                         startActivity(new Intent(getApplicationContext(), ProductsActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_categories:
                         startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_account:
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                 }
 

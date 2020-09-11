@@ -53,6 +53,11 @@ public class AddCategoryActivity extends AppCompatActivity {
         statement.execute();
 
         String phoneNumber = "+919000990098";
+
+        if (user!= null) {
+            phoneNumber = user.getPhoneNumber();
+        }
+
         databaseReference.child(phoneNumber).child("productCategories").child(categoryName).setValue(categoryName);
         databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("numberOfProducts").setValue(0);
         databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("categoryName").setValue(categoryName).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -62,18 +67,10 @@ public class AddCategoryActivity extends AppCompatActivity {
             }
         });
 
-//        if ( user != null && categoryName.length()>0) {
-//            String phoneNumber = user.getPhoneNumber();
-//             databaseReference.child(phoneNumber).child("productCategories").child(categoryName).setValue(categoryName);
-    //        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("numberOfProducts").setValue(0);
-    //        databaseReference.child(phoneNumber).child("productCategories").child(categoryName).child("categoryName").setValue(categoryName).addOnSuccessListener(new OnSuccessListener<Void>() {
-    //            @Override
-    //            public void onSuccess(Void aVoid) {
-    //                categoriesAdapter.notifyDataSetChanged();
-    //                finish();
-    //            }
-    //        });
-//        }
+    }
+
+    public void addCategoryBackButtonClicked(View view) {
+        finish();
     }
 
     @Override

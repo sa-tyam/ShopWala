@@ -77,6 +77,9 @@ public class AddProductActivity extends AppCompatActivity {
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String PhoneNumber = "+919000990098";
+                if (user != null) {
+                    PhoneNumber = user.getPhoneNumber();
+                }
 
                 databaseReference.child("ProductsActive").child(String.valueOf(productId)).child("productId").setValue(productId);
                 databaseReference.child("ProductsActive").child(String.valueOf(productId)).child("seller").setValue(PhoneNumber);
@@ -94,25 +97,12 @@ public class AddProductActivity extends AppCompatActivity {
                     }
                 });
 
-            /*if (user != null) {
-                databaseReference.child("Products").child(String.valueOf(productId)).child("productId").setValue(productId);
-                databaseReference.child("Products").child(String.valueOf(productId)).child("seller").setValue(PhoneNumber);
-
-                databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("productId").setValue(productId);
-                databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("name").setValue(name);
-                databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("price").setValue(price);
-                databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("quantityType").setValue(quantityType);
-                databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("productCategory").setValue(productCategory);
-                databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("description").setValue(description).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddProductActivity.this, "Product Added", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-            }*/
             }
         }
+    }
+
+    public void addProductBackButtonCicked(View view) {
+        finish();
     }
 
     @Override
@@ -166,10 +156,6 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 productCategoryType = (SpinnerItems) parent.getItemAtPosition(position);
-                if (productCategoryType.spinnerItemName.equals(getString(R.string.AddProductSpinnerAddCAtegory))){
-                    Intent myIntent = new Intent(getApplicationContext(), CategoriesActivity.class);
-                    startActivity(myIntent);
-                }
             }
 
             @Override
@@ -211,8 +197,6 @@ public class AddProductActivity extends AppCompatActivity {
           }
       }
       c.close();
-
-      categorySpinnerItemList.add(new SpinnerItems(getString(R.string.AddProductSpinnerAddCAtegory)));
     }
 
     private void initQuantityTypeList() {

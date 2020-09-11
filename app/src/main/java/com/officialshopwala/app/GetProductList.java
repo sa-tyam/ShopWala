@@ -35,6 +35,9 @@ public class GetProductList {
         productItemArrayList.clear();
 
         String phoneNumber = "+919000990098";
+        if (user!= null) {
+            phoneNumber = user.getPhoneNumber();
+        }
         databaseReference.child(phoneNumber).child("Products").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -47,24 +50,6 @@ public class GetProductList {
 
             }
         });
-
-        /*String phoneNumber = user.getPhoneNumber();
-
-        if (user!=null) {
-            databaseReference.child(phoneNumber).child("Products").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                addOrderToList(dataSnapshot);
-                dataStatus.DataIsLoaded(productItemArrayList, dataKeys);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        }*/
     }
 
     public static ArrayList<ProductItem> addOrderToList(DataSnapshot dataSnapshot) {

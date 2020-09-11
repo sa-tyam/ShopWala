@@ -36,6 +36,9 @@ public class GetCategoriesList {
         categoryArrayList.clear();
 
         String phoneNumber = "+919000990098";
+        if (user!= null) {
+            phoneNumber = user.getPhoneNumber();
+        }
         databaseReference.child(phoneNumber).child("productCategories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -48,23 +51,6 @@ public class GetCategoriesList {
 
             }
         });
-
-        /*String phoneNumber = user.getPhoneNumber();
-
-        if (user!=null) {
-            databaseReference.child(phoneNumber).child("orders").child("all").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    addOrderToList(dataSnapshot);
-                    dataStatus.DataIsLoaded(orderItemArrayList, dataKeys);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }*/
     }
 
     public static void addCategoriesToList(DataSnapshot dataSnapshot) {

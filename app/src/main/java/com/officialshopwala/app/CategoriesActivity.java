@@ -49,20 +49,24 @@ public class CategoriesActivity extends AppCompatActivity {
                     case R.id.bottombar_home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_orders:
                         startActivity(new Intent(getApplicationContext(), OrdersActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_products:
                         startActivity(new Intent(getApplicationContext(), ProductsActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottombar_categories:
                         return true;
                     case R.id.bottombar_account:
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                 }
 

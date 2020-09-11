@@ -70,4 +70,13 @@
     <string name="ProductItemNotListed">Not Listed</string>
     <string name="ProductActivityHeader">Products</string>
     <string name="ProductActivitySearchHint">Search products</string>
+    <string name="PrivacyPolicyHeader">Privacy Policy</string>
+    <string name="DeliveryChargesHeader">Delivery Charges</string>
+    <string name="DeliveryChargePerOrder">DELIVERY CHARGE PER ORDER</string>
+    <string name="DeliveryChargeFreeAbove">FREE DELIVERY ABOVE</string>
+    <string name="DeliveryChargePriceHint">Price</string>
+    <string name="DeliveryChargeSaveChangesButton">Save Changes</string>
+    <string name="EditBusinessDetailHeader">Edit business details</string>
+    <string name="EditBusinessdetailImageFooter">Update store image</string>
+    <string name="EditBusinessDetailSaveButton">Save</string>
 </resources>

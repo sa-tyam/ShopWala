@@ -26,11 +26,13 @@ public class ShopSaveActivity extends AppCompatActivity {
 
     public void saveShop(View view) {
 
+        shopActivityFinishButton.setClickable(false);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Sellers");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String phoneNumber="";
+        String phoneNumber="+919000990098";
 
         if (user != null) {
             phoneNumber = user.getPhoneNumber();
@@ -41,8 +43,9 @@ public class ShopSaveActivity extends AppCompatActivity {
         if ( phoneNumber.length()>=10 && businessName.length()>0 && businessAddress.length()>0 ) {
 
             databaseReference.child(phoneNumber).push().setValue("user");
-            databaseReference.child(phoneNumber).child("businessName").push().setValue(businessName);
-            databaseReference.child(phoneNumber).child("businessAddress").push().setValue(businessAddress);
+            databaseReference.child(phoneNumber).child("businessName").setValue(businessName);
+            databaseReference.child(phoneNumber).child("businessAddress").setValue(businessAddress);
+            databaseReference.child(phoneNumber).child("businessLink").setValue("shopWala.com/businessName/1234");
 
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
