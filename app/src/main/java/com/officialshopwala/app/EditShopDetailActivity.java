@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -68,18 +69,25 @@ public class EditShopDetailActivity extends AppCompatActivity {
     }
 
     private void initNonEditable() {
-        databaseReference.child(phoneNumber).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    if (keyNode.child("businessName").getValue(String.class)!=null) {
-                        shopName = keyNode.child("businessName").getValue(String.class);
+                    if (keyNode.getKey().equals("businessName")) {
+                        shopName = keyNode.getValue(String.class);
+                        shopNameTextView.setText(shopName);
+                        Log.i("shopName", keyNode.getValue(String.class));
                     }
-                    if (keyNode.child("businessAddress").getValue(String.class)!=null) {
-                        shopAddress = keyNode.child("businessAddress").getValue(String.class);
+                    if (keyNode.getKey().equals("businessAddress")) {
+                        shopAddress = keyNode.getValue(String.class);
+                        shopAddressEditText.setText(shopAddress);
+                        Log.i("shopadress", keyNode.getValue(String.class));
                     }
-                    if (keyNode.child("businessLink").getValue(String.class)!=null) {
-                        shopLink = keyNode.child("businessLink").getValue(String.class);
+                    if (keyNode.getKey().equals("businessLink")) {
+                        shopLink = keyNode.getValue(String.class);
+                        shopLinkEditText.setText(shopLink);
+                        Log.i("shopLink", keyNode.getValue(String.class));
                     }
                 }
             }
@@ -89,10 +97,8 @@ public class EditShopDetailActivity extends AppCompatActivity {
 
             }
         });
-        shopNameTextView.setText(shopName);
+
         shopPhoneNumberEditText.setText(phoneNumber);
-        shopLinkEditText.setText(shopLink);
-        shopAddressEditText.setText(shopAddress);
     }
 
     private void initViews() {

@@ -1,15 +1,27 @@
 package com.officialshopwala.app;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -32,8 +44,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final long productId = productItemList.get(position).getProductId();
         holder.productItemName.setText(productItemList.get(position).getName());
         holder.productItemPrice.setText("$" + Integer.toString(productItemList.get(position).getPrice()));
+        holder.productItemMoreImageView.setImageResource(R.drawable.ic_edit_black);
         holder.productItemListedSwitch.setChecked(true);
         holder.productItemListedSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,13 +62,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productItemMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent myIntent = new Intent(mContext, ProductDetailActivity.class);
+                myIntent.putExtra("productId", productId);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(myIntent);
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent myIntent = new Intent(mContext, ProductDetailActivity.class);
+                myIntent.putExtra("productId", productId);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(myIntent);
             }
         });
     }

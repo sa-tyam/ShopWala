@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProductActivity">
+    tools:context=".ProductDetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
         android:layout_height="120dp"
@@ -19,7 +20,7 @@
             android:id="@+id/orderDetailHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/AddProductHeader"
+            android:text="@string/UpdateProductHeader"
             android:textColor="@color/fontColorAccent"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -40,6 +41,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_backspace_white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout11"
@@ -67,77 +69,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <EditText
-                        android:id="@+id/editProductProductName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="30dp"
-                        android:ems="10"
-                        android:hint="@string/AddProductProductNameHint"
-                        android:inputType="textPersonName"
-                        android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editProductImageViewFooter" />
-
-                    <EditText
-                        android:id="@+id/editProductDescription"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:ems="10"
-                        android:hint="@string/AddProductDecriptionHint"
-                        android:inputType="textPersonName"
-                        android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editProductPrice" />
-
-                    <TextView
-                        android:id="@+id/editProductImageViewFooter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/AddProductAddImagefooter"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editProductimageView" />
-
-                    <EditText
-                        android:id="@+id/editProductPrice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:ems="10"
-                        android:hint="@string/AddProductPriceHint"
-                        android:inputType="number"
-                        android:singleLine="true"
-                        app:layout_constraintEnd_toStartOf="@+id/editProductQuantityTypeSpinner"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editProductProductName" />
-
                     <Button
                         android:id="@+id/updateCategorySaveButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:layout_marginBottom="50dp"
-                        android:background="@color/buttonColorPrimaryActive"
-                        android:onClick="addProduct"
+                        android:background="@color/updateButton"
+                        android:onClick="updateProduct"
                         android:paddingLeft="40dp"
                         android:paddingRight="40dp"
-                        android:text="@string/AddProductSaveButton"
+                        android:text="@string/UpdateProductSaveButton"
                         android:textColor="@color/fontColorAccent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editProductDeleteButton"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/editProductDeleteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/buttonColorPrimaryActive"
+                        android:layout_marginTop="30dp"
+                        android:onClick="deleteProduct"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="40dp"
+                        android:text="@string/UpdateProductDeleteButton"
+                        android:textColor="@color/fontColorAccent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editChoseCtgSpinner" />
+                        app:layout_constraintTop_toBottomOf="@+id/editChoseCtgSpinner"/>
 
                     <ImageView
                         android:id="@+id/editProductimageView"
@@ -150,16 +112,49 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:srcCompat="@tools:sample/avatars" />
 
-                    <Spinner
-                        android:id="@+id/editChoseCtgSpinner"
+                    <TextView
+                        android:id="@+id/editProductImageViewFooter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/UpdateProductAddImagefooter"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editProductimageView" />
+
+                    <EditText
+                        android:id="@+id/editProductProductName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="20dp"
+                        android:ems="10"
+                        android:hint="@string/UpdateProductProductNameHint"
+                        android:inputType="textPersonName"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editProductImageViewFooter" />
+
+                    <EditText
+                        android:id="@+id/editProductPrice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="10dp"
+                        android:ems="10"
+                        android:hint="@string/UpdateProductPriceHint"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        app:layout_constraintEnd_toStartOf="@+id/editProductQuantityTypeSpinner"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editProductDescription" />
+                        app:layout_constraintTop_toBottomOf="@+id/editProductProductName" />
 
                     <Spinner
                         android:id="@+id/editProductQuantityTypeSpinner"
@@ -172,10 +167,37 @@
                         app:layout_constraintStart_toEndOf="@+id/editProductPrice"
                         app:layout_constraintTop_toTopOf="@+id/editProductPrice" />
 
+                    <EditText
+                        android:id="@+id/editProductDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:ems="10"
+                        android:hint="@string/UpdateProductDecriptionHint"
+                        android:inputType="textPersonName"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editProductPrice" />
+
+                    <Spinner
+                        android:id="@+id/editChoseCtgSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editProductDescription" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

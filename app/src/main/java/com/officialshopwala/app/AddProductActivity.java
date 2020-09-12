@@ -3,7 +3,6 @@ package com.officialshopwala.app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -27,13 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.officialshopwala.app.AddCategoryActivity.DB_NAME;
-import static com.officialshopwala.app.GetCategoriesList.categoryArrayList;
-
 public class AddProductActivity extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    FirebaseUser user;
 
     SpinnerItemAdapter quantityTypeSpinnerAdapter;
     static SpinnerItemAdapter categoryTypeSpinnerAdapter;
@@ -55,6 +52,8 @@ public class AddProductActivity extends AppCompatActivity {
 
     long productId = 1000;
 
+    String PhoneNumber;
+
     public void addProduct (View view) {
 
         String name = AddProductName.getText().toString();
@@ -75,8 +74,7 @@ public class AddProductActivity extends AppCompatActivity {
 
             if (productId >= 1000) {
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String PhoneNumber = "+919000990098";
+                PhoneNumber = "+919000990098";
                 if (user != null) {
                     PhoneNumber = user.getPhoneNumber();
                 }
@@ -113,6 +111,8 @@ public class AddProductActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         databaseReference.child("ProductsActive").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -133,13 +133,13 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     public void initialiseViews() {
-        quantityTypeSpinner = findViewById(R.id.AddProductQuantityTypeSpinner);
-        categorySpinner = findViewById(R.id.AddProductChoseCtgSpinner);
-        AddProductImageView = findViewById(R.id.AddProductimageView);
-        AddProductName = findViewById(R.id.AddProductProductName);
-        AddProductPrice = findViewById(R.id.AddProductPrice);
-        AddProductDescription = findViewById(R.id.AddProductDescription);
-        AddProductSaveButton = findViewById(R.id.AddProductSaveButton);
+        quantityTypeSpinner = findViewById(R.id.editProductQuantityTypeSpinner);
+        categorySpinner = findViewById(R.id.editChoseCtgSpinner);
+        AddProductImageView = findViewById(R.id.editProductimageView);
+        AddProductName = findViewById(R.id.editProductProductName);
+        AddProductPrice = findViewById(R.id.editProductPrice);
+        AddProductDescription = findViewById(R.id.editProductDescription);
+        AddProductSaveButton = findViewById(R.id.updateCategorySaveButton);
     }
 
     private void setSpinners() {
@@ -180,23 +180,21 @@ public class AddProductActivity extends AppCompatActivity {
 
     public void initCategoryList() {
         categorySpinnerItemList.clear();
-      SQLiteDatabase myDatabase = this.openOrCreateDatabase("CATEGORY_NAME_DATABASE", MODE_PRIVATE, null);
+        SQLiteDatabase myDatabase = this.openOrCreateDatabase("CATEGORY_NAME_DATABASE", MODE_PRIVATE, null);
+          Cursor c = myDatabase.rawQuery("SELECT * FROM categoryNamesTable", null);
+          int nameIndex = c.getColumnIndex("name");
 
-      Cursor c = myDatabase.rawQuery("SELECT * FROM categoryNamesTable", null);
-      int nameIndex = c.getColumnIndex("name");
-
-      c.moveToFirst();
-      if(c!=null) {
-          Log.i("first", c.getString(nameIndex));
-          for ( int i = 0 ; i < 100 ; i++ ) {
-              if (c.moveToNext()) {
-                  categorySpinnerItemList.add(new SpinnerItems(c.getString(nameIndex)));
-              } else {
-                  break;
+          if(c!=null && c.moveToFirst()) {
+              Log.i("first", c.getString(nameIndex));
+              for ( int i = 0 ; i < 100 ; i++ ) {
+                  if (c.moveToNext()) {
+                      categorySpinnerItemList.add(new SpinnerItems(c.getString(nameIndex)));
+                  } else {
+                      break;
+                  }
               }
           }
-      }
-      c.close();
+          c.close();
     }
 
     private void initQuantityTypeList() {

@@ -1,6 +1,7 @@
 package com.officialshopwala.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.orderNumberTitleTextView.setText("Order #"+Integer.toString(orderItemArrayList.get(position).getOrderNumber()));
+        final long orderNumber = orderItemArrayList.get(position).getOrderNumber();
+        holder.orderNumberTitleTextView.setText("Order #"+Long.toString(orderNumber));
         holder.orderPriceTextView.setText("$"+Integer.toString(orderItemArrayList.get(position).getPrice()));
         holder.orderItemCountTextView.setText(Integer.toString(orderItemArrayList.get(position).getItemCount())+ " items");
         holder.orderItemTimeTextView.setText(orderItemArrayList.get(position).getOrderTime());
@@ -39,7 +41,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.orderDetailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent myIntent = new Intent(mContext, OrderDetailsActivity.class);
+                myIntent.putExtra("orderNumber" , orderNumber);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(myIntent);
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(mContext, OrderDetailsActivity.class);
+                myIntent.putExtra("orderNumber" , orderNumber);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(myIntent);
             }
         });
     }

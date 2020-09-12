@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCategoryActivity">
+    tools:context=".CategoryDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -19,7 +19,7 @@
             android:id="@+id/editBusinessDetailHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/AddCAtegoryHeader"
+            android:text="@string/CategoryHeader"
             android:textColor="@color/fontColorAccent"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -63,16 +63,31 @@
         android:id="@+id/updateCategorySaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        app:layout_constraintTop_toBottomOf="@+id/updateCategoryNameTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/ShopSaveActivityFinishButton"
-        android:textColor="@color/fontColorAccent"
-        android:background="@color/buttonColorPrimaryActive"
+        android:layout_marginBottom="30dp"
+        android:background="@color/updateButton"
+        android:onClick="updateCategory"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:onClick="addCategory"/>
+        android:text="@string/UpdateCategoryButtonText"
+        android:textColor="@color/fontColorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/updateCategoryDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/buttonColorPrimaryActive"
+        android:onClick="deleteProduct"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="@string/UpdateCategoryDeleteButtonText"
+        android:textColor="@color/fontColorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/updateCategorySaveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

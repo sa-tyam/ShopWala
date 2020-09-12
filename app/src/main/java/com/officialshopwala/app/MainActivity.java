@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,12 +23,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.officialshopwala.app.AddCategoryActivity.DB_NAME;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    FirebaseDatabase rootNode;
+    FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    FirebaseUser user;
+    String phoneNumber;
 
     public void shareLinkOnWhatsapp (View view) {
         boolean installed = appInstalledOrNot("com.whatsapp");
@@ -50,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
         //set home as selected
         bottomNavigationView.setSelectedItemId(R.id.bottombar_home);
 
-        //setting database rootnode;
-        rootNode = FirebaseDatabase.getInstance();
-        databaseReference = rootNode.getReference("Sellers");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String phoneNumber = "+919000990098";
+        //setting database;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Sellers");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        phoneNumber = "+919000990098";
         if (user!=null) {
             phoneNumber = user.getPhoneNumber();
         }
@@ -107,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        SetCategoryTable setCategoryTable = new SetCategoryTable(getApplicationContext());
+        setCategoryTable.setCategoriesTable();
     }
 
     private boolean appInstalledOrNot(String url) {

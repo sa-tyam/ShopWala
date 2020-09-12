@@ -11,52 +11,69 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditShopDetailActivity"></activity>
+        <activity android:name=".CategoryDetailActivity"></activity>
+        <activity android:name=".EditProductActivity" />
+        <activity android:name=".EditCategoryActivity" />
+        <activity android:name=".ProductDetailActivity" />
+        <activity android:name=".EditShopDetailActivity" />
         <activity android:name=".SetDeliveryChargeActivity" />
         <activity android:name=".PrivacyPolicyActivity" />
         <activity
             android:name=".AddProductActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OrderDetailsActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AddCategoryActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ShopSaveActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AccountActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CategoriesActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ProductsActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OrdersActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignupStarterActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OnBoardingActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OTPVerificationActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignupActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
-        </activity>
+            android:theme="@style/SplashTheme" />
         <activity
             android:name=".MainActivity"
+            android:fitsSystemWindows="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

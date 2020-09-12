@@ -138,13 +138,14 @@ public class AccountActivity extends AppCompatActivity {
         reference = database.getReference("Sellers");
 
 
-        reference.child(phoneNumber).addValueEventListener(new ValueEventListener() {
+        reference.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for ( DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    if (keyNode.child("businessName").getValue(String.class)!=null) {
-                        String shopName = keyNode.child("businessName").getValue(String.class);
-                        accountLayoutShopName.setText(shopName);
+                if (dataSnapshot.hasChild("businessName")) {
+                    for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                        if (keyNode.getKey().equals("businessName")){
+                            accountLayoutShopName.setText(keyNode.getValue(String.class));
+                        }
                     }
                 }
             }

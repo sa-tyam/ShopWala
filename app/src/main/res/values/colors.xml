@@ -8,4 +8,5 @@
     <color name="linkColor">#6200EE</color>
     <color name="buttonColorPrimaryActive">#FB1504</color>
     <color name="buttonColorPrimaryInactive">#FB968E</color>
+    <color name="updateButton">#0B800F</color>
 </resources>
