@@ -46,6 +46,9 @@ public class ShopSaveActivity extends AppCompatActivity {
             databaseReference.child(phoneNumber).child("businessName").setValue(businessName);
             databaseReference.child(phoneNumber).child("businessAddress").setValue(businessAddress);
             databaseReference.child(phoneNumber).child("businessLink").setValue("shopWala.com/businessName/1234");
+            databaseReference.child(phoneNumber).child("Revenue").child("revenue").setValue(0);
+            databaseReference.child(phoneNumber).child("StoreViews").child("storeViews").setValue(0);
+            databaseReference.child(phoneNumber).child("ProductViews").child("productViews").setValue(0);
 
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();

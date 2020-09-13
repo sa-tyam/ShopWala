@@ -79,6 +79,8 @@ public class AddProductActivity extends AppCompatActivity {
                     PhoneNumber = user.getPhoneNumber();
                 }
 
+                final String prdct = productCategory;
+
                 databaseReference.child("ProductsActive").child(String.valueOf(productId)).child("productId").setValue(productId);
                 databaseReference.child("ProductsActive").child(String.valueOf(productId)).child("seller").setValue(PhoneNumber);
 
@@ -91,6 +93,24 @@ public class AddProductActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AddProductActivity.this, "Product Added", Toast.LENGTH_SHORT).show();
+
+                        databaseReference.child("Sellers").child(PhoneNumber).child("productCategories").child(prdct).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                                    if (keyNode.getKey().equals("numberOfProducts")) {
+                                        int n = keyNode.getValue(Integer.class);
+                                        n++;
+                                        databaseReference.child("Sellers").child(PhoneNumber).child("productCategories").child(prdct).child("numberOfProducts").setValue(n);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                         finish();
                     }
                 });

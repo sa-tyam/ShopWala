@@ -39,6 +39,8 @@ public class ProductsActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+
+
         //set product as selected
         bottomNavigationView.setSelectedItemId(R.id.bottombar_products);
 

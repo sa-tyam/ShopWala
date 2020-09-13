@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,13 +24,47 @@ public class OrdersActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    RecyclerView ordersRecyclerView;
+    static RecyclerView ordersRecyclerView;
     static OrderAdapter orderAdapter;
+
+    String filter = "all";
 
     public void showOrderFilter (View view) {
         String[] options = {"All", "Pending", "Accepted", "Declined", "Shipped", "Cancelled", "Delivered"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select a level");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        callRetrieveData("all");
+                        break;
+                    case 1:
+                        callRetrieveData("pending");
+                        break;
+                    case 2:
+                        callRetrieveData("accepted");
+                        break;
+                    case 3:
+                        callRetrieveData("declined");
+                        break;
+                    case 4:
+                        callRetrieveData("shipped");
+                        break;
+                    case 5:
+                        callRetrieveData("cancelled");
+                        break;
+                    case 6:
+                        callRetrieveData("delivered");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        builder.show();
 
     }
 
@@ -38,6 +75,11 @@ public class OrdersActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         ordersRecyclerView = findViewById(R.id.productsRecyclerView);
+
+        // checking for filters from main activity
+        if (getIntent().getStringExtra("filter")!= null) {
+            filter = getIntent().getStringExtra("filter");
+        }
 
         //set orders as selected
         bottomNavigationView.setSelectedItemId(R.id.bottombar_orders);
@@ -76,7 +118,7 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
-        callRetrieveData("all");
+        callRetrieveData(filter);
     }
 
     private void setOrderRecyclerView() {
@@ -105,7 +147,6 @@ public class OrdersActivity extends AppCompatActivity {
 
             @Override
             public void DataIsDeleted() {
-
             }
         }, filter);
     }

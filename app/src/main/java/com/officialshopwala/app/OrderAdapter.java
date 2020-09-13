@@ -33,29 +33,42 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final long orderNumber = orderItemArrayList.get(position).getOrderNumber();
-        holder.orderNumberTitleTextView.setText("Order #"+Long.toString(orderNumber));
-        holder.orderPriceTextView.setText("$"+Integer.toString(orderItemArrayList.get(position).getPrice()));
-        holder.orderItemCountTextView.setText(Integer.toString(orderItemArrayList.get(position).getItemCount())+ " items");
-        holder.orderItemTimeTextView.setText(orderItemArrayList.get(position).getOrderTime());
-        holder.orderStatusTextView.setText(orderItemArrayList.get(position).getOrderStatus());
-        holder.orderDetailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(mContext, OrderDetailsActivity.class);
-                myIntent.putExtra("orderNumber" , orderNumber);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(myIntent);
+
+        if ( orderNumber != 0 ) {
+
+            holder.orderNumberTitleTextView.setText("Order #" + Long.toString(orderNumber));
+            holder.orderPriceTextView.setText("$" + Integer.toString(orderItemArrayList.get(position).getPrice()));
+            holder.orderItemCountTextView.setText(Integer.toString(orderItemArrayList.get(position).getItemCount()) + " items");
+            holder.orderItemTimeTextView.setText(orderItemArrayList.get(position).getOrderTime());
+            holder.orderStatusTextView.setText(orderItemArrayList.get(position).getOrderStatus());
+            if (orderNumber != -1) {
+                holder.orderDetailButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(mContext, OrderDetailsActivity.class);
+                        myIntent.putExtra("orderNumber", orderNumber);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(myIntent);
+                    }
+                });
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(mContext, OrderDetailsActivity.class);
+                        myIntent.putExtra("orderNumber", orderNumber);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(myIntent);
+                    }
+                });
             }
-        });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(mContext, OrderDetailsActivity.class);
-                myIntent.putExtra("orderNumber" , orderNumber);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(myIntent);
-            }
-        });
+        } else {
+            holder.orderNumberTitleTextView.setText("No orders");
+            holder.orderPriceTextView.setText("");
+            holder.orderItemCountTextView.setText("");
+            holder.orderItemTimeTextView.setText("");
+            holder.orderStatusTextView.setText("");
+            holder.orderDetailButton.setText("");
+        }
     }
 
     @Override

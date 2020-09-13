@@ -324,6 +324,25 @@ public class OrderDetailsActivity extends AppCompatActivity {
         databaseReference.child("Sellers").child(phoneNumber).child("orders").child("all").child(String.valueOf(orderId)).child("orderStatus").setValue("delivered").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                databaseReference.child("Sellers").child(phoneNumber).child("orders").child("accepted").child(String.valueOf(orderId)).removeValue();
+                databaseReference.child("Sellers").child(phoneNumber).child("orders").child("shipped").child(String.valueOf(orderId)).removeValue();
+                databaseReference.child("Sellers").child(phoneNumber).child("Revenue").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot rootNode : dataSnapshot.getChildren()) {
+                            if ( rootNode.getValue(Long.class) != null ) {
+                                Long revenue = rootNode.getValue(Long.class);
+                                acceptingOrderPrice += revenue;
+                                databaseReference.child("Sellers").child(phoneNumber).child("Revenue").child("revenue").setValue(acceptingOrderPrice);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 finish();
             }
         });
@@ -334,6 +353,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
         databaseReference.child("Sellers").child(phoneNumber).child("orders").child("all").child(String.valueOf(orderId)).child("orderStatus").setValue("notDelivered").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                databaseReference.child("Sellers").child(phoneNumber).child("orders").child("accepted").child(String.valueOf(orderId)).removeValue();
+                databaseReference.child("Sellers").child(phoneNumber).child("orders").child("shipped").child(String.valueOf(orderId)).removeValue();
                 finish();
             }
         });

@@ -42,24 +42,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         holder.categoryItemCountTextView.setText(Integer.toString(categoryArrayList.get(position).getNumberOfProducts()) + " Product listed");
         holder.categoryItemMoreImage.setImageResource(R.drawable.ic_edit_black);
 
-//        Glide.with(holder.categoryItemMoreImage).asDrawable()
-//                .load(R.drawable.ic_more_black)
-//                .into(holder.categoryItemMoreImage);
-
-
         holder.categoryItemMoreImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(mContext, CategoryDetailActivity.class);
-                myIntent.putExtra("categoryName" , categoryName);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(myIntent);
-            }
-        });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(mContext, ProductsActivity.class);
                 myIntent.putExtra("categoryName" , categoryName);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(myIntent);

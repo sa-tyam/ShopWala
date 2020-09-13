@@ -3,6 +3,8 @@ package com.officialshopwala.app;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -14,6 +16,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.officialshopwala.app.OrdersActivity.orderAdapter;
+
 public class GetOrdersList {
 
     static FirebaseDatabase firebaseDatabase;
@@ -22,6 +26,7 @@ public class GetOrdersList {
 
     static ArrayList<OrderItem> orderItemArrayList = new ArrayList<>();
     static ArrayList<String> dataKeys = new ArrayList<>();
+
     public interface DataStatus {
         void DataIsLoaded(ArrayList<OrderItem> orderItemArrayList, ArrayList<String> dataKeys);
         void DataIsInserted();
@@ -30,10 +35,10 @@ public class GetOrdersList {
     }
 
     public static void retrieveDataFromFirebase(final DataStatus dataStatus, final String filter) {
+        orderItemArrayList.clear();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Sellers");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        orderItemArrayList.clear();
 
         final ArrayList<Long> filterIds = new ArrayList<>();
 
@@ -42,15 +47,21 @@ public class GetOrdersList {
             phoneNumber = user.getPhoneNumber();
         }
 
-        databaseReference.child(phoneNumber).child("orders").child(filter).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(phoneNumber).child("orders").child(filter).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    if (keyNode.child("orderNumber").getValue(Integer.class)!=null) {
-                        long orderNumber = keyNode.child("orderNumber").getValue(Long.class);
-                        filterIds.add(orderNumber);
-                        Log.i("ordernumber", String.valueOf(orderNumber));
-                        getFromAll(dataStatus, orderNumber);
+                if (dataSnapshot.getChildrenCount()>0) {
+                    for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                        if (keyNode.child("orderId").getValue(Integer.class) != null) {
+                            long orderNumber = keyNode.child("orderId").getValue(Long.class);
+                            filterIds.add(orderNumber);
+                            Log.i("ordernumber", String.valueOf(orderNumber));
+                            getFromAll(dataStatus, orderNumber);
+                        }
+                    }
+                } else {
+                    if (orderItemArrayList.isEmpty()) {
+                        dataStatus.DataIsLoaded(orderItemArrayList, dataKeys);
                     }
                 }
             }
@@ -78,7 +89,6 @@ public class GetOrdersList {
     }
 
     public static ArrayList<OrderItem> addOrderToList(DataSnapshot dataSnapshot) {
-        orderItemArrayList.clear();
 
         long orderNumber = -1;
         int price = -1;
@@ -89,7 +99,7 @@ public class GetOrdersList {
         for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
             dataKeys.add(keyNode.getKey());
 
-            if (keyNode.getKey().equals("orderNumber")) {
+            if (keyNode.getKey().equals("orderId")) {
                 orderNumber = keyNode.getValue(Long.class);
                 Log.i("ordernumber from last", String.valueOf(orderNumber));
             }
@@ -108,9 +118,10 @@ public class GetOrdersList {
             }
         }
 
-        OrderItem ordr = new OrderItem(itemCount, orderNumber, orderStatus, orderTime, price);
-        orderItemArrayList.add(ordr);
-
+        if (orderNumber != -1) {
+            OrderItem ordr = new OrderItem(itemCount, orderNumber, orderStatus, orderTime, price);
+            orderItemArrayList.add(ordr);
+        }
         return orderItemArrayList;
     }
 

@@ -342,6 +342,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:onClick="showAllOrders"
                             android:text="@string/HomeActiveOrdersViewAll" />
 
                         <ImageView
@@ -367,6 +368,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@android:color/transparent"
+                        android:onClick="showAllOrders"
                         android:text="@string/HomeActiveOrdersAllFilter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -382,6 +384,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@android:color/transparent"
+                        android:onClick="showPendingOrders"
                         android:text="@string/HomeActiveOrdersPendingFilter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/HomeActiveOrdersAllFilterButton"
@@ -397,6 +400,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@android:color/transparent"
+                        android:onClick="showAcceptedOrders"
                         android:text="@string/HomeActiveOrdersAcceptedFilter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/HomeActiveOrdersPendingFilterButton"
