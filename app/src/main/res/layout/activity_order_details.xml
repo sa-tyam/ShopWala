@@ -394,7 +394,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/orderDetailCustomerPaymentHint" />
 
                     <Button
-                        android:id="@+id/orderDetailDeclineButton"
+                        android:id="@+id/orderDetailNegativeButton"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
@@ -402,28 +402,26 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="30dp"
                         android:background="@android:color/holo_red_light"
-                        android:onClick="declineOrder"
                         android:text="@string/OrderDetailDeclineButton"
                         android:textColor="@android:color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/orderDetailAcceptButton"
+                        app:layout_constraintEnd_toStartOf="@+id/orderDetailPositiveButton"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/fourthHorizontalLine" />
 
                     <Button
-                        android:id="@+id/orderDetailAcceptButton"
+                        android:id="@+id/orderDetailPositiveButton"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="15dp"
                         android:layout_marginBottom="30dp"
                         android:background="@android:color/holo_green_light"
-                        android:onClick="acceptOrder"
                         android:text="@string/OrderDetailAcceptButton"
                         android:textColor="@android:color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/orderDetailDeclineButton"
+                        app:layout_constraintStart_toEndOf="@+id/orderDetailNegativeButton"
                         app:layout_constraintTop_toBottomOf="@+id/fourthHorizontalLine" />
 
 

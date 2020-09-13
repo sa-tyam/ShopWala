@@ -111,7 +111,9 @@
     <string name="OrderDetailCustomerDetailsPinCode">Pin Code:</string>
     <string name="OrderDetailCustomerDetailsPayment">Payment:</string>
     <string name="OrderDetailDeclineButton">Decline</string>
-    <string name="OrderDetailAcceptButton">Decline</string>
-    <string name="OrderDetailShippedButton">Shipped</string>
+    <string name="OrderDetailAcceptButton">Accept</string>
+    <string name="OrderDetailCancelButtton">Cancel Order</string>
+    <string name="OrderDetailShipButton">Ship Order</string>
     <string name="OrderDetailDeliveredButton">Delivered</string>
+    <string name="OrderDetailNotDeliveredButton">Not Delivered</string>
 </resources>

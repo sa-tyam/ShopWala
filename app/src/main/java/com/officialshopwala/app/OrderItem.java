@@ -1,7 +1,7 @@
 package com.officialshopwala.app;
 
 public class OrderItem {
-    int orderNumber;
+    long orderNumber;
     int price;
     int itemCount;
     String orderTime;
@@ -10,7 +10,7 @@ public class OrderItem {
 
     }
 
-    public OrderItem(int itemCount, int orderNumber, String orderStatus, String orderTime, int price) {
+    public OrderItem(int itemCount, long orderNumber, String orderStatus, String orderTime, int price) {
         this.itemCount = itemCount;
         this.orderNumber = orderNumber;
         this.orderStatus = orderStatus;
@@ -18,11 +18,11 @@ public class OrderItem {
         this.price = price;
     }
 
-    public int getOrderNumber() {
+    public long getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(int orderNumber) {
+    public void setOrderNumber(long orderNumber) {
         this.orderNumber = orderNumber;
     }
 

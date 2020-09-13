@@ -1,6 +1,7 @@
 package com.officialshopwala.app;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,9 @@ public class OrdersActivity extends AppCompatActivity {
     static OrderAdapter orderAdapter;
 
     public void showOrderFilter (View view) {
+        String[] options = {"All", "Pending", "Accepted", "Declined", "Shipped", "Cancelled", "Delivered"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
     }
 
@@ -72,7 +76,7 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
-        callRetrieveData();
+        callRetrieveData("all");
     }
 
     private void setOrderRecyclerView() {
@@ -82,7 +86,7 @@ public class OrdersActivity extends AppCompatActivity {
         ordersRecyclerView.setAdapter(orderAdapter);
     }
 
-    private void callRetrieveData() {
+    private void callRetrieveData( String filter) {
         GetOrdersList.retrieveDataFromFirebase(new GetOrdersList.DataStatus() {
             @Override
             public void DataIsLoaded(ArrayList<OrderItem> orderItemArrayList, ArrayList<String> dataKeys) {
@@ -103,7 +107,7 @@ public class OrdersActivity extends AppCompatActivity {
             public void DataIsDeleted() {
 
             }
-        });
+        }, filter);
     }
 
 
