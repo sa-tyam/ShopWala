@@ -74,22 +74,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:background="@color/updateButton"
+                        android:layout_marginBottom="50dp"
+                        android:background="@drawable/button_background_green"
+                        android:elevation="10dp"
                         android:onClick="updateProduct"
                         android:paddingLeft="40dp"
                         android:paddingRight="40dp"
                         android:text="@string/UpdateProductSaveButton"
                         android:textColor="@color/fontColorAccent"
-                        app:layout_constraintTop_toBottomOf="@+id/editProductDeleteButton"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editProductDeleteButton" />
 
                     <Button
                         android:id="@+id/editProductDeleteButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/buttonColorPrimaryActive"
+                        android:background="@drawable/button_background_red"
+                        android:elevation="10dp"
                         android:layout_marginTop="30dp"
                         android:onClick="deleteProduct"
                         android:paddingLeft="40dp"
@@ -110,7 +114,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:src="@drawable/ic_account" />
 
                     <TextView
                         android:id="@+id/editProductImageViewFooter"

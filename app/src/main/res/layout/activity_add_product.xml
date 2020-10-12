@@ -128,7 +128,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="50dp"
-                        android:background="@color/buttonColorPrimaryActive"
+                        android:background="@drawable/button_background_red"
+                        android:elevation="10dp"
                         android:onClick="addProduct"
                         android:paddingLeft="40dp"
                         android:paddingRight="40dp"
@@ -148,7 +149,7 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:src="@drawable/ic_account"/>
 
                     <Spinner
                         android:id="@+id/editChoseCtgSpinner"

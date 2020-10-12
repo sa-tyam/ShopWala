@@ -1,4 +1,5 @@
 <resources>
+    <string name="Rs">\u20B9</string>
     <string name="app_name">ShopWala</string>
     <string name="continue_button">Continue</string>
     <string name="yourWhatsappNumber">Your WhatsApp Number</string>
@@ -110,6 +111,7 @@
     <string name="OrderDetailCustomerDetailsAddress">Address:</string>
     <string name="OrderDetailCustomerDetailsPinCode">Pin Code:</string>
     <string name="OrderDetailCustomerDetailsPayment">Payment:</string>
+    <string name="OrderDetailCustomerDetailsCity">City:</string>
     <string name="OrderDetailDeclineButton">Decline</string>
     <string name="OrderDetailAcceptButton">Accept</string>
     <string name="OrderDetailCancelButtton">Cancel Order</string>

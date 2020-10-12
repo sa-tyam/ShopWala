@@ -70,9 +70,10 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/ShopSaveActivityFinishButton"
         android:textColor="@color/fontColorAccent"
-        android:background="@color/buttonColorPrimaryActive"
+        android:background="@drawable/button_background_red"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:onClick="addCategory"/>
+        android:onClick="addCategory"
+        android:elevation="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

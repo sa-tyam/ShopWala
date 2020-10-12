@@ -65,6 +65,7 @@ public class GetProductList {
             String productCategory = "";
             String quantityType = "";
             String description = "";
+            String productImageUrl = "";
 
             if (keyNode.child("productId").getValue(Long.class)!=null) {
                 productId = keyNode.child("productId").getValue(Long.class);
@@ -84,7 +85,10 @@ public class GetProductList {
             if (keyNode.child("description").getValue(String.class)!=null) {
                 description = keyNode.child("description").getValue(String.class);
             }
-            ProductItem prdct = new ProductItem(productId, user, price, name, productCategory, quantityType, description);
+            if (keyNode.child("productImageUrl").getValue(String.class)!=null) {
+                productImageUrl = keyNode.child("productImageUrl").getValue(String.class);
+            }
+            ProductItem prdct = new ProductItem(productId, user, price, name, productCategory, quantityType, description, productImageUrl);
             productItemArrayList.add(prdct);
         }
         return productItemArrayList;

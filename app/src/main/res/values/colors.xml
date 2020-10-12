@@ -3,10 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="fontColorPrimary">#0f9d58</color>
+    <color name="fontColorPrimary">#e90030</color>
+    <color name="blueColor">#006493</color>
     <color name="fontColorAccent">#FFFFFFFF</color>
     <color name="linkColor">#6200EE</color>
-    <color name="buttonColorPrimaryActive">#FB1504</color>
+    <color name="buttonColorPrimaryActive">#e90030</color>
     <color name="buttonColorPrimaryInactive">#FB968E</color>
     <color name="updateButton">#0B800F</color>
+    <color name="pinkTint">#F8DEDD</color>
 </resources>

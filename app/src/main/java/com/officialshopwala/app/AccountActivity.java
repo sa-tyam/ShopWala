@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -27,7 +29,10 @@ public class AccountActivity extends AppCompatActivity {
     DatabaseReference reference;
     FirebaseUser user;
 
+    String phoneNumber;
+
     TextView accountLayoutShopName;
+    ImageView AccountLayoutShopImageView;
 
     BottomNavigationView bottomNavigationView;
 
@@ -44,10 +49,15 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void shareWithCustomer (View view) {
+
+        String businessLink = "http://www.shopwala.link/?seller_phone=";
+        String substr = phoneNumber.substring(1);
+        businessLink  = businessLink + substr;
+
         boolean installed = appInstalledOrNot("com.whatsapp");
         if (installed) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://api.whatsapp.com/send?text="+getString(R.string.homeShareHeaderLink)));
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?text="+businessLink));
             startActivity(intent);
         } else {
             Toast.makeText(this, getString(R.string.whatsappNotInstalled), Toast.LENGTH_SHORT).show();
@@ -90,6 +100,7 @@ public class AccountActivity extends AppCompatActivity {
         accountLayoutShopName = findViewById(R.id.accountLayoutShopName);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        AccountLayoutShopImageView = findViewById(R.id.AccountLayoutShopImageView);
 
         //set account as selected
         bottomNavigationView.setSelectedItemId(R.id.bottombar_account);
@@ -129,7 +140,7 @@ public class AccountActivity extends AppCompatActivity {
         });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        String phoneNumber = "+919000990098";
+        phoneNumber = "+919000990098";
         if (user != null) {
             phoneNumber = user.getPhoneNumber();
         }
@@ -138,13 +149,24 @@ public class AccountActivity extends AppCompatActivity {
         reference = database.getReference("Sellers");
 
 
-        reference.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(phoneNumber).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("businessName")) {
                     for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
                         if (keyNode.getKey().equals("businessName")){
                             accountLayoutShopName.setText(keyNode.getValue(String.class));
+                        }
+                        if (keyNode.getKey().equals("ShopImageDownloadUrl")){
+                            String ShopImageDownloadUrl = "";
+                            ShopImageDownloadUrl = keyNode.getValue(String.class);
+                            if (!ShopImageDownloadUrl.equals("")) {
+                                Picasso.get()
+                                        .load(ShopImageDownloadUrl)
+                                        .fit()
+                                        .centerCrop()
+                                        .into(AccountLayoutShopImageView);
+                            }
                         }
                     }
                 }

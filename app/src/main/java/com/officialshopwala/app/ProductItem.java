@@ -8,8 +8,17 @@ public class ProductItem {
     String productCategory;
     String quantityType;
     String description;
+    String productImageUrl;
 
-    public ProductItem(long productId, String user, int price, String name, String productCategory, String quantityType, String description) {
+    public String getProductImageUrl() {
+        return productImageUrl;
+    }
+
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
+    }
+
+    public ProductItem(long productId, String user, int price, String name, String productCategory, String quantityType, String description, String productImageUrl) {
         this.productId = productId;
         this.user = user;
         this.price = price;
@@ -17,6 +26,7 @@ public class ProductItem {
         this.productCategory = productCategory;
         this.quantityType = quantityType;
         this.description = description;
+        this.productImageUrl = productImageUrl;
     }
 
     public long getProductId() {

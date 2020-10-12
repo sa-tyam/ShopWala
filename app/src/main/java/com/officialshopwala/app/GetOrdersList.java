@@ -95,6 +95,10 @@ public class GetOrdersList {
         int itemCount = -1;
         String orderTime = "";
         String orderStatus = "";
+        String address = "";
+        String buyerName = "";
+        int pinCode = -1;
+        String buyerMobile = "";
 
         for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
             dataKeys.add(keyNode.getKey());
@@ -108,7 +112,7 @@ public class GetOrdersList {
                 price = keyNode.getValue(Integer.class);
             }
             if (keyNode.getKey().equals("itemCount")) {
-                itemCount = keyNode.getValue(Integer.class);
+                itemCount = Integer.parseInt(keyNode.getValue(String.class));
             }
             if (keyNode.getKey().equals("orderTime")) {
                 orderTime = keyNode.getValue(String.class);
@@ -116,10 +120,22 @@ public class GetOrdersList {
             if (keyNode.getKey().equals("orderStatus")) {
                 orderStatus = keyNode.getValue(String.class);
             }
+            if (keyNode.getKey().equals("address")) {
+                address = keyNode.getValue(String.class);
+            }
+            if (keyNode.getKey().equals("buyerName")) {
+                buyerName = keyNode.getValue(String.class);
+            }
+            if (keyNode.getKey().equals("pinCode")) {
+                pinCode = Integer.parseInt(keyNode.getValue(String.class));
+            }
+            if (keyNode.getKey().equals("buyerMobile")) {
+                buyerMobile = keyNode.getValue(String.class);
+            }
         }
 
         if (orderNumber != -1) {
-            OrderItem ordr = new OrderItem(itemCount, orderNumber, orderStatus, orderTime, price);
+            OrderItem ordr = new OrderItem(orderNumber, price, itemCount, orderTime, orderStatus, address, buyerName, pinCode, buyerMobile);
             orderItemArrayList.add(ordr);
         }
         return orderItemArrayList;

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,6 +27,8 @@ public class ProductsActivity extends AppCompatActivity {
     RecyclerView productsRecyclerView;
     static ProductAdapter productAdapter;
 
+    SearchView productActivitySearchView;
+
     public void addProduct(View view) {
         startActivity(new Intent(this, AddProductActivity.class));
     }
@@ -38,6 +41,8 @@ public class ProductsActivity extends AppCompatActivity {
         productsRecyclerView = findViewById(R.id.productsRecyclerView);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        productActivitySearchView = findViewById(R.id.productActivitySearchView);
 
 
 
@@ -78,7 +83,32 @@ public class ProductsActivity extends AppCompatActivity {
             }
         });
 
+        productActivitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchResult(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchResult(newText);
+                return true;
+            }
+        });
+
         callRetrieveData();
+    }
+
+    public void searchResult (String query ) {
+        String userInput = query.toLowerCase();
+        ArrayList<ProductItem> searchFiles = new ArrayList<>();
+        for ( ProductItem item : productItemArrayList) {
+            if (item.getName().toLowerCase().contains(userInput)) {
+                searchFiles.add(item);
+            }
+        }
+        productAdapter.searchData(searchFiles);
     }
 
     private void callRetrieveData() {
@@ -112,4 +142,5 @@ public class ProductsActivity extends AppCompatActivity {
         productAdapter = new ProductAdapter(getApplicationContext(), productItemArrayList);
         productsRecyclerView.setAdapter(productAdapter);
     }
+
 }

@@ -8,9 +8,10 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
+        style="@style/BottombarTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fontColorAccent"
+        app:backgroundTint="@color/fontColorPrimary"
         app:itemIconTint="@drawable/bottombar_selector"
         app:itemTextColor="@drawable/bottombar_selector"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +26,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:background="@color/fontColorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +125,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@android:color/white"
+                        android:background="@color/pinkTint"
                         app:layout_constraintBottom_toTopOf="@+id/cardView4"
                         app:layout_constraintEnd_toStartOf="@+id/cardView"
                         app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +134,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/white"
+                            android:background="@color/pinkTint"
                             android:padding="20dp">
 
                             <TextView
@@ -173,7 +174,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@android:color/white"
+                        android:background="@color/pinkTint"
                         app:layout_constraintBottom_toTopOf="@+id/cardView3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/cardView2"
@@ -182,7 +183,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/white"
+                            android:background="@color/pinkTint"
                             android:padding="20dp">
 
                             <TextView
@@ -222,7 +223,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@android:color/white"
+                        android:background="@color/pinkTint"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/cardView3"
                         app:layout_constraintStart_toStartOf="parent"
@@ -231,7 +232,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/white"
+                            android:background="@color/pinkTint"
                             android:padding="20dp">
 
                             <TextView
@@ -271,7 +272,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@android:color/white"
+                        android:background="@color/pinkTint"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/cardView4"
@@ -280,7 +281,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/white"
+                            android:background="@color/pinkTint"
                             android:padding="20dp">
 
                             <TextView
@@ -312,6 +313,7 @@
 
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -324,6 +326,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="20dp"
+                        android:onClick="showPendingOrders"
                         android:text="@string/homeActiveOrdersHeader"
                         android:textColor="@android:color/black"
                         android:textSize="25sp"
@@ -367,9 +370,11 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/button_background_red"
+                        android:elevation="10dp"
                         android:onClick="showAllOrders"
                         android:text="@string/HomeActiveOrdersAllFilter"
+                        android:textColor="@color/fontColorAccent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -383,9 +388,11 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/button_background_red"
+                        android:elevation="10dp"
                         android:onClick="showPendingOrders"
                         android:text="@string/HomeActiveOrdersPendingFilter"
+                        android:textColor="@color/fontColorAccent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/HomeActiveOrdersAllFilterButton"
                         app:layout_constraintTop_toTopOf="parent">
@@ -399,14 +406,33 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/button_background_red"
+                        android:elevation="10dp"
                         android:onClick="showAcceptedOrders"
                         android:text="@string/HomeActiveOrdersAcceptedFilter"
+                        android:textColor="@color/fontColorAccent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/HomeActiveOrdersPendingFilterButton"
                         app:layout_constraintTop_toTopOf="parent">
 
                     </Button>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/homeActiveOrdersLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </ScrollView>
@@ -454,6 +480,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/homeShareHeaderDescription"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -465,6 +492,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:singleLine="true"
                 android:text="@string/homeShareHeaderLink"
                 android:textColor="@color/linkColor"
@@ -474,16 +502,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/homeShareHeaderShareButton" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/homeShareHeaderShareButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:onClick="shareLinkOnWhatsapp"
+                android:src="@drawable/whatsapplogo"
+                app:layout_constraintBottom_toBottomOf="@+id/homeShareHeaderLink"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/homeShareHeaderDescription"
-                app:srcCompat="@android:drawable/ic_menu_send" />
+                app:layout_constraintTop_toBottomOf="@+id/homeShareHeaderDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

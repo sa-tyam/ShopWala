@@ -106,7 +106,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/DeliveryChargeSaveChangesButton"
             android:textColor="@color/fontColorAccent"
-            android:background="@color/buttonColorPrimaryActive"
+            android:background="@drawable/button_background_red"
+            android:elevation="10dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
             android:onClick="saveDeliveryCharge"/>

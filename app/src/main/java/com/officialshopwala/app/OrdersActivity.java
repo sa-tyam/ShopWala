@@ -33,7 +33,6 @@ public class OrdersActivity extends AppCompatActivity {
         String[] options = {"All", "Pending", "Accepted", "Declined", "Shipped", "Cancelled", "Delivered"};
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select a level");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

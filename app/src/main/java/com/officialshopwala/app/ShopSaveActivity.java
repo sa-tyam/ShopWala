@@ -40,12 +40,16 @@ public class ShopSaveActivity extends AppCompatActivity {
         String businessName = businessNameEditText.getText().toString();
         String businessAddress = addressEditText.getText().toString();
 
+        String businessLink = "http://shopwala.pythonanywhere.com/?seller_phone=";
+        String substr = phoneNumber.substring(1);
+        businessLink  = businessLink + substr;
+
         if ( phoneNumber.length()>=10 && businessName.length()>0 && businessAddress.length()>0 ) {
 
             databaseReference.child(phoneNumber).push().setValue("user");
             databaseReference.child(phoneNumber).child("businessName").setValue(businessName);
             databaseReference.child(phoneNumber).child("businessAddress").setValue(businessAddress);
-            databaseReference.child(phoneNumber).child("businessLink").setValue("shopWala.com/businessName/1234");
+            databaseReference.child(phoneNumber).child("businessLink").setValue(businessLink);
             databaseReference.child(phoneNumber).child("Revenue").child("revenue").setValue(0);
             databaseReference.child(phoneNumber).child("StoreViews").child("storeViews").setValue(0);
             databaseReference.child(phoneNumber).child("ProductViews").child("productViews").setValue(0);

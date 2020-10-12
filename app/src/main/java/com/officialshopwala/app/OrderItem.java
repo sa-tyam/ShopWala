@@ -6,16 +6,53 @@ public class OrderItem {
     int itemCount;
     String orderTime;
     String orderStatus;
-    public OrderItem() {
+    String address;
+    String buyerName;
+    int pinCode;
+    String buyerMobile;
 
+    public OrderItem(long orderNumber, int price, int itemCount, String orderTime, String orderStatus, String address, String buyerName, int pinCode, String buyerMobile) {
+        this.orderNumber = orderNumber;
+        this.price = price;
+        this.itemCount = itemCount;
+        this.orderTime = orderTime;
+        this.orderStatus = orderStatus;
+        this.address = address;
+        this.buyerName = buyerName;
+        this.pinCode = pinCode;
+        this.buyerMobile = buyerMobile;
     }
 
-    public OrderItem(int itemCount, long orderNumber, String orderStatus, String orderTime, int price) {
-        this.itemCount = itemCount;
-        this.orderNumber = orderNumber;
-        this.orderStatus = orderStatus;
-        this.orderTime = orderTime;
-        this.price = price;
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
+
+    public int getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(int pinCode) {
+        this.pinCode = pinCode;
+    }
+
+    public String getBuyerMobile() {
+        return buyerMobile;
+    }
+
+    public void setBuyerMobile(String buyerMobile) {
+        this.buyerMobile = buyerMobile;
     }
 
     public long getOrderNumber() {

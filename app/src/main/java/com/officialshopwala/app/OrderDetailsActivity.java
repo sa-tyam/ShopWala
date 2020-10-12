@@ -3,10 +3,12 @@ package com.officialshopwala.app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
@@ -41,8 +44,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
     TextView orderDetailCustomerAddress;
     TextView orderDetailCustomerPinCode;
     TextView orderDetailCustomerPayment;
+    TextView orderDetailCustomerCity;
     Button orderDetailNegativeButton;
     Button orderDetailPositiveButton;
+
+    ImageView orderDetailProductImage;
+    TextView orderDetailProductName;
 
     public void orderDetailBackButtonCicked (View view) {
         finish();
@@ -79,12 +86,16 @@ public class OrderDetailsActivity extends AppCompatActivity {
         orderDetailCustomerAddress = findViewById(R.id.orderDetailCustomerAddress);
         orderDetailCustomerPinCode = findViewById(R.id.orderDetailCustomerPinCode);
         orderDetailCustomerPayment = findViewById(R.id.orderDetailCustomerPayment);
+        orderDetailCustomerCity = findViewById(R.id.orderDetailCustomerCity);
         orderDetailNegativeButton = findViewById(R.id.orderDetailNegativeButton);
         orderDetailPositiveButton = findViewById(R.id.orderDetailPositiveButton);
 
+        orderDetailProductImage = findViewById(R.id.orderDetailProductImage);
+        orderDetailProductName = findViewById(R.id.orderDetailProductName);
     }
 
     public void getOrderFromDatabase() {
+
         orderDetailOrderId.setText("#"+String.valueOf(orderId));
         databaseReference.child("Sellers").child(phoneNumber).child("orders").child("all").child(String.valueOf(orderId)).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -97,19 +108,55 @@ public class OrderDetailsActivity extends AppCompatActivity {
                             setButtonActions(keyNode.getValue(String.class));
                         }
                     }
+                    if (keyNode.getKey().equals("productId")){
+                        if(keyNode.getValue(String.class)!=null) {
+                            String productId = keyNode.getValue(String.class);
+                            Log.i("product id for order", keyNode.getValue(String.class));
+                            databaseReference.child("Sellers").child(phoneNumber).child("Products").child(String.valueOf(productId)).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                                        if (keyNode.getKey().equals("name")) {
+                                            if (keyNode.getValue(String.class) != null) {
+                                                orderDetailProductName.setText(keyNode.getValue(String.class));
+                                                Log.i("product name for order" , keyNode.getValue(String.class));
+                                            }
+                                        }
+
+                                        if (keyNode.getKey().equals("productImageUrl")){
+                                            String productImageUrl = "";
+                                            productImageUrl = keyNode.getValue(String.class);
+                                            if (!productImageUrl.equals("")) {
+                                                Picasso.get()
+                                                        .load(productImageUrl)
+                                                        .fit()
+                                                        .centerCrop()
+                                                        .into(orderDetailProductImage);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
                     if (keyNode.getKey().equals("orderTime")){
                         if(keyNode.getValue(String.class)!=null) {
                             orderDetailOrderTime.setText(keyNode.getValue(String.class));
                         }
                     }
                     if (keyNode.getKey().equals("itemCount")){
-                        if(keyNode.getValue(Integer.class)!=null) {
-                            orderDetailOrderItemTotalNumber.setText(keyNode.getValue(Integer.class) + " ITEMS");
+                        if(keyNode.getValue(String.class)!=null) {
+                            orderDetailOrderItemTotalNumber.setText(keyNode.getValue(String.class) + " ITEMS");
                         }
                     }
                     if (keyNode.getKey().equals("price")){
                         if(keyNode.getValue(Integer.class)!=null) {
-                            orderDetailOrderItemTotal.setText("$"+keyNode.getValue(Integer.class));
+                            orderDetailOrderItemTotal.setText(getResources().getString(R.string.Rs) +keyNode.getValue(Integer.class));
                             setPrice(keyNode.getValue(Integer.class));
                         }
                     }
@@ -118,43 +165,29 @@ public class OrderDetailsActivity extends AppCompatActivity {
                             orderDetailCustomerPayment.setText(keyNode.getValue(String.class));
                         }
                     }
-                    if (keyNode.getKey().equals("buyerMobile")){
+                    if (keyNode.getKey().equals("buyerName")){
                         if(keyNode.getValue(String.class)!=null) {
-                            buyerPhoneNumber = keyNode.getValue(String.class);
-                            if (buyerPhoneNumber.length()>=10) {
-                                setCustomerDetailFromDatabase(buyerPhoneNumber);
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void setCustomerDetailFromDatabase (String buyerPhoneNumber) {
-        orderDetailCustomerMobile.setText(buyerPhoneNumber);
-        databaseReference.child("Buyers").child(buyerPhoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    if (keyNode.getKey().equals("name")) {
-                        if (keyNode.getValue(String.class)!=null) {
                             orderDetailCustomerName.setText(keyNode.getValue(String.class));
                         }
                     }
-                    if (keyNode.getKey().equals("address")) {
-                        if (keyNode.getValue(String.class)!=null) {
+                    if (keyNode.getKey().equals("address")){
+                        if(keyNode.getValue(String.class)!=null) {
                             orderDetailCustomerAddress.setText(keyNode.getValue(String.class));
                         }
                     }
-                    if (keyNode.getKey().equals("pinCode")) {
-                        if (keyNode.getValue(Integer.class)!=null) {
-                            orderDetailCustomerPinCode.setText(String.valueOf(keyNode.getValue(Integer.class)));
+                    if (keyNode.getKey().equals("pinCode")){
+                        if(keyNode.getValue(String.class)!=null) {
+                            orderDetailCustomerPinCode.setText(keyNode.getValue(String.class));
+                        }
+                    }
+                    if (keyNode.getKey().equals("buyerCity")){
+                        if(keyNode.getValue(String.class)!=null) {
+                            orderDetailCustomerCity.setText(keyNode.getValue(String.class));
+                        }
+                    }
+                    if (keyNode.getKey().equals("buyerMobile")){
+                        if(keyNode.getValue(String.class)!=null) {
+                            orderDetailCustomerMobile.setText(keyNode.getValue(String.class));
                         }
                     }
                 }
@@ -165,7 +198,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             }
         });
+
     }
+    
     public void setPrice (final int price) {
         databaseReference.child("Sellers").child(phoneNumber).child("deliveryCharges").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -186,12 +221,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 }
                 if (price >= freeOver ) {
                     acceptingOrderPrice = price;
-                    orderDetailDeliveryTotal.setText("$0");
-                    orderDetailOrderGrandTotal.setText("$"+String.valueOf(acceptingOrderPrice));
+                    orderDetailDeliveryTotal.setText(getResources().getString(R.string.Rs)+"0");
+                    orderDetailOrderGrandTotal.setText(getResources().getString(R.string.Rs)+String.valueOf(acceptingOrderPrice));
                 } else {
                     acceptingOrderPrice = price + charge;
-                    orderDetailDeliveryTotal.setText("$"+String.valueOf(charge));
-                    orderDetailOrderGrandTotal.setText(String.valueOf("$"+acceptingOrderPrice));
+                    orderDetailDeliveryTotal.setText(getResources().getString(R.string.Rs)+String.valueOf(charge));
+                    orderDetailOrderGrandTotal.setText(String.valueOf(getResources().getString(R.string.Rs)+acceptingOrderPrice));
                 }
             }
 
@@ -330,7 +365,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot rootNode : dataSnapshot.getChildren()) {
-                            if ( rootNode.getValue(Long.class) != null ) {
+                            if ( rootNode.getKey().equals("revenue") && rootNode.getValue(Long.class) != null ) {
                                 Long revenue = rootNode.getValue(Long.class);
                                 acceptingOrderPrice += revenue;
                                 databaseReference.child("Sellers").child(phoneNumber).child("Revenue").child("revenue").setValue(acceptingOrderPrice);

@@ -37,7 +37,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         if ( orderNumber != 0 ) {
 
             holder.orderNumberTitleTextView.setText("Order #" + Long.toString(orderNumber));
-            holder.orderPriceTextView.setText("$" + Integer.toString(orderItemArrayList.get(position).getPrice()));
+            holder.orderPriceTextView.setText("\u20B9"+ Integer.toString(orderItemArrayList.get(position).getPrice()));
             holder.orderItemCountTextView.setText(Integer.toString(orderItemArrayList.get(position).getItemCount()) + " items");
             holder.orderItemTimeTextView.setText(orderItemArrayList.get(position).getOrderTime());
             holder.orderStatusTextView.setText(orderItemArrayList.get(position).getOrderStatus());

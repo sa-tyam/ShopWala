@@ -18,6 +18,7 @@
         android:text="@string/onboardSignupButton"
         android:textColor="@color/fontColorPrimary"
         android:textSize="12sp"
+        android:background="@android:color/transparent"
         android:clickable="true"/>
 
 

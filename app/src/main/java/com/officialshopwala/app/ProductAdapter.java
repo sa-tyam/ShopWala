@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -46,9 +47,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final long productId = productItemList.get(position).getProductId();
         holder.productItemName.setText(productItemList.get(position).getName());
-        holder.productItemPrice.setText("$" + Integer.toString(productItemList.get(position).getPrice()));
+        holder.productItemPrice.setText("\u20B9" + Integer.toString(productItemList.get(position).getPrice()));
         holder.productItemMoreImageView.setImageResource(R.drawable.ic_edit_black);
         holder.productItemListedSwitch.setChecked(true);
+        if( !productItemList.get(position).getProductImageUrl().equals("")) {
+            Picasso.get()
+                    .load(productItemList.get(position).getProductImageUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(holder.productItemImageView);
+        }
         holder.productItemListedSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,5 +110,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             productItemImageView = itemView.findViewById(R.id.productItemImageView);
             productItemMoreImageView = itemView.findViewById(R.id.productItemMoreButtonImage);
         }
+    }
+
+    public void searchData ( ArrayList<ProductItem> searchProductList) {
+        productItemList = new ArrayList<>();
+        productItemList.addAll(searchProductList);
+        notifyDataSetChanged();
     }
 }
