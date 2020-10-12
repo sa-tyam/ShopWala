@@ -45,6 +45,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     TextView orderDetailCustomerPinCode;
     TextView orderDetailCustomerPayment;
     TextView orderDetailCustomerCity;
+    TextView orderDetailCustomerDescription;
     Button orderDetailNegativeButton;
     Button orderDetailPositiveButton;
 
@@ -89,6 +90,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         orderDetailCustomerCity = findViewById(R.id.orderDetailCustomerCity);
         orderDetailNegativeButton = findViewById(R.id.orderDetailNegativeButton);
         orderDetailPositiveButton = findViewById(R.id.orderDetailPositiveButton);
+        orderDetailCustomerDescription = findViewById(R.id.orderDetailCustomerDescription);
 
         orderDetailProductImage = findViewById(R.id.orderDetailProductImage);
         orderDetailProductName = findViewById(R.id.orderDetailProductName);
@@ -188,6 +190,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     if (keyNode.getKey().equals("buyerMobile")){
                         if(keyNode.getValue(String.class)!=null) {
                             orderDetailCustomerMobile.setText(keyNode.getValue(String.class));
+                        }
+                    }
+                    if (keyNode.getKey().equals("userDescription")){
+                        if(keyNode.getValue(String.class)!=null) {
+                            orderDetailCustomerDescription.setText(keyNode.getValue(String.class));
                         }
                     }
                 }

@@ -68,6 +68,7 @@
     <string name="AddProductCategoryHint">Add category of product</string>
     <string name="AddProductSaveButton">Add Product</string>
     <string name="AddProductSpinnerAddCAtegory">Add new Category</string>
+    <string name="AddProductVarietyHint">Varieties available</string>
     <string name="ProductItemListedOnline">Listed Online</string>
     <string name="ProductItemNotListed">Not Listed</string>
     <string name="ProductActivityHeader">Products</string>
@@ -112,6 +113,7 @@
     <string name="OrderDetailCustomerDetailsPinCode">Pin Code:</string>
     <string name="OrderDetailCustomerDetailsPayment">Payment:</string>
     <string name="OrderDetailCustomerDetailsCity">City:</string>
+    <string name="OrderDetailCustomerDetailsUserDescription">Requests:</string>
     <string name="OrderDetailDeclineButton">Decline</string>
     <string name="OrderDetailAcceptButton">Accept</string>
     <string name="OrderDetailCancelButtton">Cancel Order</string>

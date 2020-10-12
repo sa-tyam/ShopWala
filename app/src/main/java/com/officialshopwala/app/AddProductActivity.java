@@ -71,6 +71,7 @@ public class AddProductActivity extends AppCompatActivity {
     EditText AddProductName;
     EditText AddProductPrice;
     EditText AddProductDescription;
+    EditText editProductSpecialVariety;
     Button AddProductSaveButton;
 
     long productId = 1000;
@@ -101,6 +102,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
         String description = AddProductDescription.getText().toString();
+        String variety = editProductSpecialVariety.getText().toString();
 
         if (name != null && price > 0 && quantityType!=null) {
 
@@ -124,6 +126,7 @@ public class AddProductActivity extends AppCompatActivity {
                 databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("price").setValue(price);
                 databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("quantityType").setValue(quantityType);
                 databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("productCategory").setValue(productCategory);
+                databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("variety").setValue(variety);
 
 
 
@@ -370,6 +373,7 @@ public class AddProductActivity extends AppCompatActivity {
         AddProductPrice = findViewById(R.id.editProductPrice);
         AddProductDescription = findViewById(R.id.editProductDescription);
         AddProductSaveButton = findViewById(R.id.updateCategorySaveButton);
+        editProductSpecialVariety = findViewById(R.id.editProductSpecialVariety);
     }
 
     private void setSpinners() {

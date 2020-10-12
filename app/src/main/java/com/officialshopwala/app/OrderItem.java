@@ -10,6 +10,15 @@ public class OrderItem {
     String buyerName;
     int pinCode;
     String buyerMobile;
+    String userDescription;
+
+    public String getUserDescription() {
+        return userDescription;
+    }
+
+    public void setUserDescription(String userDescription) {
+        this.userDescription = userDescription;
+    }
 
     public OrderItem(long orderNumber, int price, int itemCount, String orderTime, String orderStatus, String address, String buyerName, int pinCode, String buyerMobile) {
         this.orderNumber = orderNumber;

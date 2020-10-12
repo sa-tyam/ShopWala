@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.officialshopwala.app.GetOrdersList.orderItemArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
@@ -44,19 +46,19 @@ public class MainActivity extends AppCompatActivity {
     TextView OverviewStoreViewsCountTextView;
     TextView OverviewProductViewsCountTextView;
 
+    ArrayList<OrderItem> ActiveOrderItemArrayList = new ArrayList<>();
     LinearLayout homeActiveOrdersLayout;
 
-    public void shareLinkOnWhatsapp (View view) {
+    public void shareLinkOnWhatsapp(View view) {
         boolean installed = appInstalledOrNot("com.whatsapp");
         if (installed) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://api.whatsapp.com/send?text="+shopLink));
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?text=" + shopLink));
             startActivity(intent);
         } else {
             Toast.makeText(this, getString(R.string.whatsappNotInstalled), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     public void showAllOrders(View view) {
@@ -65,12 +67,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
         finish();
     }
+
     public void showPendingOrders(View view) {
         Intent myIntent = new Intent(getApplicationContext(), OrdersActivity.class);
         myIntent.putExtra("filter", "pending");
         startActivity(myIntent);
         finish();
     }
+
     public void showAcceptedOrders(View view) {
         Intent myIntent = new Intent(getApplicationContext(), OrdersActivity.class);
         myIntent.putExtra("filter", "accepted");
@@ -101,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("Sellers");
         user = FirebaseAuth.getInstance().getCurrentUser();
         phoneNumber = "+919000990098";
-        if (user!=null) {
+        if (user != null) {
             phoneNumber = user.getPhoneNumber();
         }
 
         databaseReference.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.hasChild("businessName")){
+                if (!dataSnapshot.hasChild("businessName")) {
                     startActivity(new Intent(getApplicationContext(), ShopSaveActivity.class));
                     finish();
                 }
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.bottombar_home:
                         return true;
                     case R.id.bottombar_orders:
@@ -159,12 +163,12 @@ public class MainActivity extends AppCompatActivity {
         SetCategoryTable setCategoryTable = new SetCategoryTable(getApplicationContext());
         setCategoryTable.setCategoriesTable();
 
-        setActiveOrders();
+        setActiveOrdersInView();
 
-        if(shopLink.equals("")) {
+        if (shopLink.equals("")) {
             shopLink = "http://www.shopwala.link/?seller_phone=";
             String substr = phoneNumber.substring(1);
-            shopLink  = shopLink + substr;
+            shopLink = shopLink + substr;
             databaseReference.child(phoneNumber).child("businessLink").setValue(shopLink);
             homeShareHeaderLink.setText(shopLink);
         }
@@ -174,19 +178,19 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for ( DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
                     if (keyNode.getKey().equals("Revenue")) {
-                        if (keyNode.child("revenue").getValue(Long.class)!=null) {
-                            OverviewRevenueCountTextView.setText(getResources().getString(R.string.Rs) +String.valueOf(keyNode.child("revenue").getValue(Long.class)));
+                        if (keyNode.child("revenue").getValue(Long.class) != null) {
+                            OverviewRevenueCountTextView.setText(getResources().getString(R.string.Rs) + String.valueOf(keyNode.child("revenue").getValue(Long.class)));
                         }
                     }
                     if (keyNode.getKey().equals("StoreViews")) {
-                        if (keyNode.child("storeViews").getValue(Integer.class)!=null) {
+                        if (keyNode.child("storeViews").getValue(Integer.class) != null) {
                             OverviewStoreViewsCountTextView.setText(String.valueOf(keyNode.child("storeViews").getValue(Integer.class)));
                         }
                     }
                     if (keyNode.getKey().equals("ProductViews")) {
-                        if (keyNode.child("productViews").getValue(Integer.class)!=null) {
+                        if (keyNode.child("productViews").getValue(Integer.class) != null) {
                             OverviewProductViewsCountTextView.setText(String.valueOf(keyNode.child("productViews").getValue(Integer.class)));
                         }
                     }
@@ -196,9 +200,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     if (keyNode.getKey().equals("businessLink")) {
-                        if (keyNode.getValue(String.class)!=null) {
+                        if (keyNode.getValue(String.class) != null) {
                             shopLink = keyNode.getValue(String.class);
-                            if(shopLink!=null && !shopLink.equals("")) {
+                            if (shopLink != null && !shopLink.equals("")) {
                                 homeShareHeaderLink.setText(shopLink);
                             }
                         }
@@ -213,77 +217,146 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setActiveOrders() {
-            GetOrdersList.retrieveDataFromFirebase(new GetOrdersList.DataStatus() {
-                @Override
-                public void DataIsLoaded(ArrayList<OrderItem> orderItemArrayList, ArrayList<String> dataKeys) {
-                    for ( OrderItem item : orderItemArrayList) {
-                        View view = getLayoutInflater().inflate(R.layout.orders_item, null, false);
 
-                        TextView orderNumberTitleTextView = view.findViewById(R.id.productItemName);
-                        TextView orderPriceTextView = view.findViewById(R.id.productItemPriceTextView);
-                        TextView orderItemCountTextView = view.findViewById(R.id.productItemSwitchTextView);
-                        TextView orderItemTimeTextView = view.findViewById(R.id.orderItemTimeTextView);
-                        TextView orderStatusTextView = view.findViewById(R.id.orderStatusTextView);
-                        TextView orderDetailButton = view.findViewById(R.id.orderDetailButton);
+    private void setActiveOrdersInView() {
 
-
-                        final long orderNumber = item.getOrderNumber();
-
-                        if ( orderNumber != 0 ) {
-
-                            orderNumberTitleTextView.setText("Order #" + Long.toString(orderNumber));
-                            orderPriceTextView.setText("\u20B9"+ Integer.toString(item.getPrice()));
-                            orderItemCountTextView.setText(Integer.toString(item.getItemCount()) + " items");
-                            orderItemTimeTextView.setText(item.getOrderTime());
-                            orderStatusTextView.setText(item.getOrderStatus());
-                            if (orderNumber != -1) {
-                                orderDetailButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent myIntent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
-                                        myIntent.putExtra("orderNumber", orderNumber);
-                                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(myIntent);
-                                    }
-                                });
-                                view.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent myIntent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
-                                        myIntent.putExtra("orderNumber", orderNumber);
-                                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(myIntent);
-                                    }
-                                });
+        final ArrayList<Long> pendingOrderIds = new ArrayList<>();
+        databaseReference.child(phoneNumber).child("orders").child("pending").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    if (keyNode.child("orderId").getValue(Integer.class) != null) {
+                        long orderNumber = keyNode.child("orderId").getValue(Long.class);
+                        databaseReference.child(phoneNumber).child("orders").child("all").child(String.valueOf(orderNumber)).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                addOrderToList(dataSnapshot);
                             }
-                        } else {
-                            orderNumberTitleTextView.setText("No orders");
-                            orderPriceTextView.setText("");
-                            orderItemCountTextView.setText("");
-                            orderItemTimeTextView.setText("");
-                            orderStatusTextView.setText("");
-                            orderDetailButton.setText("");
-                        }
 
-                        homeActiveOrdersLayout.addView(view);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
                 }
+            }
 
-                @Override
-                public void DataIsInserted() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
+            }
+        });
 
-                @Override
-                public void DataIsUpdated() {
 
-                }
 
-                @Override
-                public void DataIsDeleted() {
-                }
-            }, "pending");
+
+    }
+
+    public ArrayList<OrderItem> addOrderToList(DataSnapshot dataSnapshot) {
+
+        long orderNumber = -1;
+        int price = -1;
+        int itemCount = -1;
+        String orderTime = "";
+        String orderStatus = "";
+        String address = "";
+        String buyerName = "";
+        int pinCode = -1;
+        String buyerMobile = "";
+
+        for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+
+            if (keyNode.getKey().equals("orderId")) {
+                orderNumber = keyNode.getValue(Long.class);
+                Log.i("ordernumber from last", String.valueOf(orderNumber));
+            }
+
+            if (keyNode.getKey().equals("price")) {
+                price = keyNode.getValue(Integer.class);
+            }
+            if (keyNode.getKey().equals("itemCount")) {
+                itemCount = Integer.parseInt(keyNode.getValue(String.class));
+            }
+            if (keyNode.getKey().equals("orderTime")) {
+                orderTime = keyNode.getValue(String.class);
+            }
+            if (keyNode.getKey().equals("orderStatus")) {
+                orderStatus = keyNode.getValue(String.class);
+            }
+            if (keyNode.getKey().equals("address")) {
+                address = keyNode.getValue(String.class);
+            }
+            if (keyNode.getKey().equals("buyerName")) {
+                buyerName = keyNode.getValue(String.class);
+            }
+            if (keyNode.getKey().equals("pinCode")) {
+                pinCode = Integer.parseInt(keyNode.getValue(String.class));
+            }
+            if (keyNode.getKey().equals("buyerMobile")) {
+                buyerMobile = keyNode.getValue(String.class);
+            }
+        }
+
+        if (orderNumber != -1) {
+            OrderItem ordr = new OrderItem(orderNumber, price, itemCount, orderTime, orderStatus, address, buyerName, pinCode, buyerMobile);
+            addView(ordr);
+            ActiveOrderItemArrayList.add(ordr);
+        }
+        return ActiveOrderItemArrayList;
+    }
+
+    public void addView (OrderItem item) {
+        View view = getLayoutInflater().inflate(R.layout.orders_item, null, false);
+
+        TextView orderNumberTitleTextView = view.findViewById(R.id.productItemName);
+        TextView orderPriceTextView = view.findViewById(R.id.productItemPriceTextView);
+        TextView orderItemCountTextView = view.findViewById(R.id.productItemSwitchTextView);
+        TextView orderItemTimeTextView = view.findViewById(R.id.orderItemTimeTextView);
+        TextView orderStatusTextView = view.findViewById(R.id.orderStatusTextView);
+        TextView orderDetailButton = view.findViewById(R.id.orderDetailButton);
+
+
+        final long orderNumber = item.getOrderNumber();
+
+        if (orderNumber != 0) {
+
+            orderNumberTitleTextView.setText("Order #" + Long.toString(orderNumber));
+            orderPriceTextView.setText("\u20B9" + Integer.toString(item.getPrice()));
+            orderItemCountTextView.setText(Integer.toString(item.getItemCount()) + " items");
+            orderItemTimeTextView.setText(item.getOrderTime());
+            orderStatusTextView.setText(item.getOrderStatus());
+            if (orderNumber != -1) {
+                orderDetailButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
+                        myIntent.putExtra("orderNumber", orderNumber);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(myIntent);
+                    }
+                });
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
+                        myIntent.putExtra("orderNumber", orderNumber);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(myIntent);
+                    }
+                });
+            }
+        } else {
+            orderNumberTitleTextView.setText("No orders");
+            orderPriceTextView.setText("");
+            orderItemCountTextView.setText("");
+            orderItemTimeTextView.setText("");
+            orderStatusTextView.setText("");
+            orderDetailButton.setText("");
+        }
+
+        homeActiveOrdersLayout.addView(view);
     }
 
     private boolean appInstalledOrNot(String url) {

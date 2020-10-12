@@ -447,6 +447,31 @@
                         app:layout_constraintStart_toEndOf="@+id/orderDetailCustomerPinCodeHint"
                         app:layout_constraintTop_toBottomOf="@+id/orderDetailCustomerPaymentHint" />
 
+                    <TextView
+                        android:id="@+id/orderDetailCustomerUserDescriptionHint"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/OrderDetailCustomerDetailsUserDescription"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailCustomerCityHint" />
+
+                    <TextView
+                        android:id="@+id/orderDetailCustomerDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:text="None"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/orderDetailCustomerUserDescriptionHint"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailCustomerCityHint" />
+
 
                     <View
                         android:id="@+id/fourthHorizontalLine"
@@ -458,7 +483,7 @@
                         android:background="@android:color/darker_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/orderDetailCustomerCity" />
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailCustomerDescription" />
 
                     <Button
                         android:id="@+id/orderDetailNegativeButton"

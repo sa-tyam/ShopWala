@@ -70,6 +70,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     EditText AddProductName;
     EditText AddProductPrice;
     EditText AddProductDescription;
+    EditText editProductSpecialVariety;
     Button AddProductSaveButton;
 
     long productId = 1000;
@@ -109,6 +110,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
         description = AddProductDescription.getText().toString();
+        String variety = editProductSpecialVariety.getText().toString();
 
         if (name != null && price > 0 && quantityType!=null) {
 
@@ -118,12 +120,12 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             if (productId >= 1000) {
 
-                saveProduct(databaseReference, productId, PhoneNumber, name, price, quantityType, productCategory, description);
+                saveProduct(databaseReference, productId, PhoneNumber, name, price, quantityType, productCategory, description, variety);
             }
         }
     }
 
-    public void saveProduct (DatabaseReference databaseReference, long productId, String PhoneNumber,String name, int price,String quantityType, String productCategory, String description) {
+    public void saveProduct (DatabaseReference databaseReference, long productId, String PhoneNumber,String name, int price,String quantityType, String productCategory, String description, String variety) {
         databaseReference.child("ProductsActive").child(String.valueOf(productId)).child("productId").setValue(productId);
         databaseReference.child("ProductsActive").child(String.valueOf(productId)).child("seller").setValue(PhoneNumber);
 
@@ -132,6 +134,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("price").setValue(price);
         databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("quantityType").setValue(quantityType);
         databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("productCategory").setValue(productCategory);
+        databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("variety").setValue(variety);
         databaseReference.child("Sellers").child(PhoneNumber).child("Products").child(String.valueOf(productId)).child("description").setValue(description).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -414,6 +417,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         AddProductPrice = findViewById(R.id.editProductPrice);
         AddProductDescription = findViewById(R.id.editProductDescription);
         AddProductSaveButton = findViewById(R.id.updateCategorySaveButton);
+        editProductSpecialVariety = findViewById(R.id.editProductSpecialVariety);
     }
 
     private void setSpinners() {
