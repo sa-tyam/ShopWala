@@ -5,10 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.officialshopwala.app.R;
@@ -18,80 +20,45 @@ import java.util.Random;
 
 public class MyFirebaseInstanceService extends FirebaseMessagingService  {
 
-    public static final String CHANNEL_ID = "orders_channel";
-    public static final String CHANNEL_NAME = "ORDERSChannel";
+    String TAG = "Firebase_notification";
 
     @Override
-    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        super.onMessageReceived(remoteMessage);
+    public void onNewToken(@NonNull String s) {
+        super.onNewToken(s);
 
-        if (remoteMessage.getData().isEmpty()) {
-            showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
-        } else {
-            showNotification(remoteMessage.getData());
-        }
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("refreshed token", "Refreshed token: " + refreshedToken);
+
     }
 
-    private void showNotification (Map<String,String>data) {
-        String title = data.get("title").toString();
-        String body = data.get("body").toString();
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        // ...
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // TODO(developer): Handle FCM messages here.
+        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            channel.setLockscreenVisibility(android.app.Notification.VISIBILITY_PRIVATE);
-            channel.enableLights(true);
-            channel.setDescription("orders");
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+            if (/* Check if data needs to be processed by long running job */ true) {
+                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+                //scheduleJob();
+            } else {
+                // Handle message within 10 seconds
+                //handleNow();
+            }
+
         }
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
-
-        notificationBuilder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setContentInfo("Info");
-
-        notificationManager.notify(new Random().nextInt(), notificationBuilder.build());
-    }
-
-    private void showNotification(String title, String body) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            channel.setLockscreenVisibility(android.app.Notification.VISIBILITY_PRIVATE);
-            channel.enableLights(true);
-            channel.setDescription("orders");
-
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+        // Check if message contains a notification payload.
+        if (remoteMessage.getNotification() != null) {
+            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
-
-        notificationBuilder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setContentInfo("Info");
-
-        notificationManager.notify(new Random().nextInt(), notificationBuilder.build());
+        // Also if you intend on generating your own notifications as a result of a received FCM
+        // message, here is where that should be initiated. See sendNotification method below.
     }
 }

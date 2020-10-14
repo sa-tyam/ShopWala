@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.officialshopwala.app.services.MyFirebaseInstanceService;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     TextView OverviewRevenueCountTextView;
     TextView OverviewStoreViewsCountTextView;
     TextView OverviewProductViewsCountTextView;
+    TextView homeHeaderShopName;
 
     ArrayList<OrderItem> ActiveOrderItemArrayList = new ArrayList<>();
     LinearLayout homeActiveOrdersLayout;
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //set home as selected
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         OverviewProductViewsCountTextView = findViewById(R.id.OverviewProductViewsCountTextView);
         homeShareHeaderLink = findViewById(R.id.homeShareHeaderLink);
         homeActiveOrdersLayout = findViewById(R.id.homeActiveOrdersLayout);
+        homeHeaderShopName = findViewById(R.id.homeHeaderShopName);
 
         //setting database;
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -197,6 +201,11 @@ public class MainActivity extends AppCompatActivity {
                     if (keyNode.getKey().equals("orders")) {
                         if (keyNode.child("all").getChildrenCount() >= 0) {
                             OverviewOrdersCountTextView.setText(String.valueOf(keyNode.child("all").getChildrenCount()));
+                        }
+                    }
+                    if (keyNode.getKey().equals("businessName")) {
+                        if (keyNode.getValue(String.class) != null){
+                            homeHeaderShopName.setText(String.valueOf(keyNode.getValue(String.class)));
                         }
                     }
                     if (keyNode.getKey().equals("businessLink")) {
